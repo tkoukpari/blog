@@ -71,7 +71,7 @@
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  | []   : <span class="dt">unit</span> <span class="dt">list</span> </span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  | (::) : &#39;a * &#39;b <span class="dt">list</span> -&gt; (&#39;a * &#39;b) <span class="dt">list</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> things : (<span class="dt">string</span> * (<span class="dt">int</span> * <span class="dt">unit</span>)) t = (::) (<span class="st">&quot;hi&quot;</span>, (::) (<span class="dv">1</span>, []))</span></code></pre></div>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> things : (<span class="dt">string</span> * (<span class="dt">int</span> * <span class="dt">unit</span>)) <span class="dt">list</span> = (::) (<span class="st">&quot;hi&quot;</span>, (::) (<span class="dv">1</span>, []))</span></code></pre></div>
             <p>syntax sugar will convert <code>things</code> into:</p>
             <div class="sourceCode" id="cb6"><pre
             class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> things = [ <span class="st">&quot;hi&quot;</span>; <span class="dv">1</span> ]</span></code></pre></div>
@@ -84,7 +84,7 @@
     <small>
       <a href="../index.html">index</a> |
       <a href="../atom.xml">atom</a>/<a href="../rss.xml">rss</a> |
-      generated off rev <a href="https://github.com/tkoukpari/blog-src/commit/b54bf42f">b54bf42f</a>
+      generated off rev <a href="https://github.com/tkoukpari/blog-src/commit/704782f2">704782f2</a>
     </small>
   </article>
 </body>
