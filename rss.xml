@@ -134,7 +134,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb5-1"><a href
 <p>syntax sugar will convert <code>things</code> into:</p>
 <div class="sourceCode" id="cb6"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> things = [ <span class="st">&quot;hi&quot;</span>; <span class="dv">1</span> ]</span></code></pre></div>
-<p>and BAM just like python… but “typed”</p>
+<p>a strongly typed python list</p>
 <div class="sourceCode" id="cb7"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>things <span class="op">=</span> [ <span class="st">&quot;hi&quot;</span>, <span class="dv">1</span> ]</span></code></pre></div>]]>
       </description>

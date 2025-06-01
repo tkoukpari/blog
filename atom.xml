@@ -141,7 +141,7 @@ class=&quot;sourceCode ocaml&quot;&gt;&lt;code class=&quot;sourceCode ocaml&quot
 &lt;p&gt;syntax sugar will convert &lt;code&gt;things&lt;/code&gt; into:&lt;/p&gt;
 &lt;div class=&quot;sourceCode&quot; id=&quot;cb6&quot;&gt;&lt;pre
 class=&quot;sourceCode ocaml&quot;&gt;&lt;code class=&quot;sourceCode ocaml&quot;&gt;&lt;span id=&quot;cb6-1&quot;&gt;&lt;a href=&quot;#cb6-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; things = [ &lt;span class=&quot;st&quot;&gt;&amp;quot;hi&amp;quot;&lt;/span&gt;; &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt; ]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;and BAM just like python… but “typed”&lt;/p&gt;
+&lt;p&gt;a strongly typed python list&lt;/p&gt;
 &lt;div class=&quot;sourceCode&quot; id=&quot;cb7&quot;&gt;&lt;pre
 class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;&lt;span id=&quot;cb7-1&quot;&gt;&lt;a href=&quot;#cb7-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;things &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; [ &lt;span class=&quot;st&quot;&gt;&amp;quot;hi&amp;quot;&lt;/span&gt;, &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt; ]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
     </content>
