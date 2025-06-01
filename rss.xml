@@ -73,5 +73,18 @@ class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="
       </description>
       <pubDate>Sun, 02 Feb 2025 00:00:00 GMT</pubDate>
     </item>
+    <item>
+      <title>blog 1</title>
+      <link>https://tkoukpari.github.io/blog/2025-05-31-blog-1</link>
+      <description>
+        <![CDATA[<p>welcome to my technical blog. I’ll write about tech (mostly OCaml
+related), math, economics, and other technical topics.</p>
+<p>I also have a farsi-language <a
+href="https://tiamkoukpari.com">personal website</a> with my art</p>
+<p>this is blog 1, the first blog. the blog in general is called blog 2,
+a riff on mt-caret’s blog (1).</p>]]>
+      </description>
+      <pubDate>Sat, 31 May 2025 00:00:00 GMT</pubDate>
+    </item>
   </channel>
 </rss>

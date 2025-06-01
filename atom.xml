@@ -2,8 +2,8 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>https://tkoukpari.github.io/blog</id>
   <title type="text">tkoukpari&apos;s blog</title>
-  <generator uri="https://github.com/tkoukpari/blog-src" version="6735ee26">blog-src</generator>
-  <updated>2025-02-02T00:00:00Z</updated>
+  <generator uri="https://github.com/tkoukpari/blog-src" version="ed522e88">blog-src</generator>
+  <updated>2025-05-31T00:00:00Z</updated>
   <author>
     <name>tkoukpari</name>
   </author>
@@ -75,5 +75,20 @@ class=&quot;sourceCode bash&quot;&gt;&lt;code class=&quot;sourceCode bash&quot;&
 &lt;span id=&quot;cb6-2&quot;&gt;&lt;a href=&quot;#cb6-2&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;fib&lt;/span&gt;&lt;span class=&quot;er&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ex&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;kw&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;ex&quot;&gt;=&lt;/span&gt; Result is: 89            &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
     </content>
     <link href="https://tkoukpari.github.io/blog/2025-02-02-calling-ocaml-from-c-in-dune" rel="alternate"/>
+  </entry>
+  <entry>
+    <id>tag:tkoukpari.github.io,2025-05-31:7bf5718b-6e7a-4e38-bd60-b45d0c3cc163</id>
+    <title type="text">blog 1</title>
+    <updated>2025-05-31T00:00:00Z</updated>
+    <published>2025-05-31T00:00:00Z</published>
+    <content type="html">
+      &lt;p&gt;welcome to my technical blog. I’ll write about tech (mostly OCaml
+related), math, economics, and other technical topics.&lt;/p&gt;
+&lt;p&gt;I also have a farsi-language &lt;a
+href=&quot;https://tiamkoukpari.com&quot;&gt;personal website&lt;/a&gt; with my art&lt;/p&gt;
+&lt;p&gt;this is blog 1, the first blog. the blog in general is called blog 2,
+a riff on mt-caret’s blog (1).&lt;/p&gt;
+    </content>
+    <link href="https://tkoukpari.github.io/blog/2025-05-31-blog-1" rel="alternate"/>
   </entry>
 </feed>
