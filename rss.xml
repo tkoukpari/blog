@@ -100,7 +100,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb1-1"><a href
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  | [] </span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  | (::) <span class="kw">of</span> &#39;a * &#39;a <span class="dt">list</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> ints = (::) (<span class="dv">1</span>, (::) (<span class="dv">2</span>, (::) <span class="dv">3</span> []))</span></code></pre></div>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> ints = (::) (<span class="dv">1</span>, (::) (<span class="dv">2</span>, (::) (<span class="dv">3</span>, [])))</span></code></pre></div>
 <p>a list can be empty, or it can have a value of type <code>'a</code>
 and a pointer to the next element, which must also be a
 <code>'a list</code>. syntax sugar will convert <code>ints</code>

@@ -107,7 +107,7 @@ class=&quot;sourceCode ocaml&quot;&gt;&lt;code class=&quot;sourceCode ocaml&quot
 &lt;span id=&quot;cb1-2&quot;&gt;&lt;a href=&quot;#cb1-2&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | [] &lt;/span&gt;
 &lt;span id=&quot;cb1-3&quot;&gt;&lt;a href=&quot;#cb1-3&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | (::) &lt;span class=&quot;kw&quot;&gt;of&lt;/span&gt; &amp;#39;a * &amp;#39;a &lt;span class=&quot;dt&quot;&gt;list&lt;/span&gt;&lt;/span&gt;
 &lt;span id=&quot;cb1-4&quot;&gt;&lt;a href=&quot;#cb1-4&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;/span&gt;
-&lt;span id=&quot;cb1-5&quot;&gt;&lt;a href=&quot;#cb1-5&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; ints = (::) (&lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;, (::) (&lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;, (::) &lt;span class=&quot;dv&quot;&gt;3&lt;/span&gt; []))&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span id=&quot;cb1-5&quot;&gt;&lt;a href=&quot;#cb1-5&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; ints = (::) (&lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;, (::) (&lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;, (::) (&lt;span class=&quot;dv&quot;&gt;3&lt;/span&gt;, [])))&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;a list can be empty, or it can have a value of type &lt;code&gt;&apos;a&lt;/code&gt;
 and a pointer to the next element, which must also be a
 &lt;code&gt;&apos;a list&lt;/code&gt;. syntax sugar will convert &lt;code&gt;ints&lt;/code&gt;
