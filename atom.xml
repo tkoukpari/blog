@@ -2,8 +2,8 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>https://tkoukpari.github.io/blog</id>
   <title type="text">tkoukpari&apos;s blog</title>
-  <generator uri="https://github.com/tkoukpari/blog-src" version="740ac5ef">blog-src</generator>
-  <updated>2025-05-31T00:00:00Z</updated>
+  <generator uri="https://github.com/tkoukpari/blog-src" version="b54bf42f">blog-src</generator>
+  <updated>2025-06-01T00:00:00Z</updated>
   <author>
     <name>tkoukpari</name>
   </author>
@@ -91,5 +91,60 @@ a riff on mt-caret’s &lt;a href=&quot;https://mt-caret.github.io/blog/&quot;&g
 (1).&lt;/p&gt;
     </content>
     <link href="https://tkoukpari.github.io/blog/2025-05-31-blog-1" rel="alternate"/>
+  </entry>
+  <entry>
+    <id>tag:tkoukpari.github.io,2025-06-01:f0970c25-c8d2-48a8-9be8-e11b218a1844</id>
+    <title type="text">python lists</title>
+    <updated>2025-06-01T00:00:00Z</updated>
+    <published>2025-06-01T00:00:00Z</published>
+    <content type="html">
+      &lt;p&gt;before anything I’m going to familiarize myself with writing
+markdown. here’s a blog about how to make python lists in ocaml. I
+assume basic knowledge of ocaml, ocaml variants, and types.&lt;/p&gt;
+&lt;p&gt;in ocaml, lists are linked lists of elements of the same type:&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot; id=&quot;cb1&quot;&gt;&lt;pre
+class=&quot;sourceCode ocaml&quot;&gt;&lt;code class=&quot;sourceCode ocaml&quot;&gt;&lt;span id=&quot;cb1-1&quot;&gt;&lt;a href=&quot;#cb1-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;type&lt;/span&gt; &amp;#39;a &lt;span class=&quot;dt&quot;&gt;list&lt;/span&gt; = &lt;/span&gt;
+&lt;span id=&quot;cb1-2&quot;&gt;&lt;a href=&quot;#cb1-2&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | [] &lt;/span&gt;
+&lt;span id=&quot;cb1-3&quot;&gt;&lt;a href=&quot;#cb1-3&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | (::) &lt;span class=&quot;kw&quot;&gt;of&lt;/span&gt; &amp;#39;a * &amp;#39;a &lt;span class=&quot;dt&quot;&gt;list&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb1-4&quot;&gt;&lt;a href=&quot;#cb1-4&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id=&quot;cb1-5&quot;&gt;&lt;a href=&quot;#cb1-5&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; ints = (::) (&lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;, (::) (&lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;, (::) &lt;span class=&quot;dv&quot;&gt;3&lt;/span&gt; []))&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;a list can be empty, or it can have a value of type &lt;code&gt;&apos;a&lt;/code&gt;
+and a pointer to the next element, which must also be a
+&lt;code&gt;&apos;a list&lt;/code&gt;. syntax sugar will convert &lt;code&gt;ints&lt;/code&gt;
+into:&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot; id=&quot;cb2&quot;&gt;&lt;pre
+class=&quot;sourceCode ocaml&quot;&gt;&lt;code class=&quot;sourceCode ocaml&quot;&gt;&lt;span id=&quot;cb2-1&quot;&gt;&lt;a href=&quot;#cb2-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; ints = [ &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;; &lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;; &lt;span class=&quot;dv&quot;&gt;3&lt;/span&gt; ]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;we’ll make it possible to have a list containing entirely different
+types using generalized algebraic data types (gadts). normal variants
+are a special case of gadt where all constructors have the same type
+(type &lt;code&gt;t&lt;/code&gt;):&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot; id=&quot;cb3&quot;&gt;&lt;pre
+class=&quot;sourceCode ocaml&quot;&gt;&lt;code class=&quot;sourceCode ocaml&quot;&gt;&lt;span id=&quot;cb3-1&quot;&gt;&lt;a href=&quot;#cb3-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;type&lt;/span&gt; t =&lt;/span&gt;
+&lt;span id=&quot;cb3-2&quot;&gt;&lt;a href=&quot;#cb3-2&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | A : t&lt;/span&gt;
+&lt;span id=&quot;cb3-3&quot;&gt;&lt;a href=&quot;#cb3-3&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | B : &lt;span class=&quot;dt&quot;&gt;int&lt;/span&gt;    -&amp;gt; t&lt;/span&gt;
+&lt;span id=&quot;cb3-4&quot;&gt;&lt;a href=&quot;#cb3-4&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | C : &lt;span class=&quot;dt&quot;&gt;string&lt;/span&gt; -&amp;gt; t&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;gadts in general don’t require that property:&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot; id=&quot;cb4&quot;&gt;&lt;pre
+class=&quot;sourceCode ocaml&quot;&gt;&lt;code class=&quot;sourceCode ocaml&quot;&gt;&lt;span id=&quot;cb4-1&quot;&gt;&lt;a href=&quot;#cb4-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;type&lt;/span&gt; _ t =&lt;/span&gt;
+&lt;span id=&quot;cb4-2&quot;&gt;&lt;a href=&quot;#cb4-2&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | A : &lt;span class=&quot;dt&quot;&gt;unit&lt;/span&gt; t&lt;/span&gt;
+&lt;span id=&quot;cb4-3&quot;&gt;&lt;a href=&quot;#cb4-3&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | B : &lt;span class=&quot;dt&quot;&gt;int&lt;/span&gt; -&amp;gt; &lt;span class=&quot;dt&quot;&gt;int&lt;/span&gt; t&lt;/span&gt;
+&lt;span id=&quot;cb4-4&quot;&gt;&lt;a href=&quot;#cb4-4&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | C : &lt;span class=&quot;dt&quot;&gt;string&lt;/span&gt; -&amp;gt; &lt;span class=&quot;dt&quot;&gt;string&lt;/span&gt; t&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id=&quot;python-lists-using-gadts&quot;&gt;python lists using gadts&lt;/h3&gt;
+&lt;p&gt;we can rewrite our list as a gadt and point each element to a list
+with a possibly different element type:&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot; id=&quot;cb5&quot;&gt;&lt;pre
+class=&quot;sourceCode ocaml&quot;&gt;&lt;code class=&quot;sourceCode ocaml&quot;&gt;&lt;span id=&quot;cb5-1&quot;&gt;&lt;a href=&quot;#cb5-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;type&lt;/span&gt; _ &lt;span class=&quot;dt&quot;&gt;list&lt;/span&gt; = &lt;/span&gt;
+&lt;span id=&quot;cb5-2&quot;&gt;&lt;a href=&quot;#cb5-2&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | []   : &lt;span class=&quot;dt&quot;&gt;unit&lt;/span&gt; &lt;span class=&quot;dt&quot;&gt;list&lt;/span&gt; &lt;/span&gt;
+&lt;span id=&quot;cb5-3&quot;&gt;&lt;a href=&quot;#cb5-3&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | (::) : &amp;#39;a * &amp;#39;b &lt;span class=&quot;dt&quot;&gt;list&lt;/span&gt; -&amp;gt; (&amp;#39;a * &amp;#39;b) &lt;span class=&quot;dt&quot;&gt;list&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb5-4&quot;&gt;&lt;a href=&quot;#cb5-4&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id=&quot;cb5-5&quot;&gt;&lt;a href=&quot;#cb5-5&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; things : (&lt;span class=&quot;dt&quot;&gt;string&lt;/span&gt; * (&lt;span class=&quot;dt&quot;&gt;int&lt;/span&gt; * &lt;span class=&quot;dt&quot;&gt;unit&lt;/span&gt;)) t = (::) (&lt;span class=&quot;st&quot;&gt;&amp;quot;hi&amp;quot;&lt;/span&gt;, (::) (&lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;, []))&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;syntax sugar will convert &lt;code&gt;things&lt;/code&gt; into:&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot; id=&quot;cb6&quot;&gt;&lt;pre
+class=&quot;sourceCode ocaml&quot;&gt;&lt;code class=&quot;sourceCode ocaml&quot;&gt;&lt;span id=&quot;cb6-1&quot;&gt;&lt;a href=&quot;#cb6-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; things = [ &lt;span class=&quot;st&quot;&gt;&amp;quot;hi&amp;quot;&lt;/span&gt;; &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt; ]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;and BAM just like python… but “typed”&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot; id=&quot;cb7&quot;&gt;&lt;pre
+class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;&lt;span id=&quot;cb7-1&quot;&gt;&lt;a href=&quot;#cb7-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;things &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; [ &lt;span class=&quot;st&quot;&gt;&amp;quot;hi&amp;quot;&lt;/span&gt;, &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt; ]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    </content>
+    <link href="https://tkoukpari.github.io/blog/2025-06-01-python-lists" rel="alternate"/>
   </entry>
 </feed>
