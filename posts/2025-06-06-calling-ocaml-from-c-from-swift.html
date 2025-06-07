@@ -50,9 +50,10 @@
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">&quot;c invoked by swift</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> Int_val<span class="op">(</span>caml_callback<span class="op">(*</span>fib_closure<span class="op">,</span> Val_int<span class="op">(</span>n<span class="op">)));</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-            <p>but c needs to initialize the ocaml runtime and find the
-            ocaml callback<a href="#fn2" class="footnote-ref"
-            id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+            <p>but c needs to initialize the ocaml runtime and set a
+            pointer to the ocaml callback<a href="#fn2"
+            class="footnote-ref" id="fnref2"
+            role="doc-noteref"><sup>2</sup></a></p>
             <div class="sourceCode" id="cb4"><pre
             class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dt">static</span> <span class="dt">void</span> init_ocaml<span class="op">(</span><span class="dt">void</span><span class="op">)</span> __attribute__<span class="op">((</span>constructor<span class="op">));</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="dt">static</span> <span class="dt">void</span> init_ocaml<span class="op">(</span><span class="dt">void</span><span class="op">)</span> <span class="op">{</span></span>
@@ -133,7 +134,7 @@
     <small>
       <a href="../index.html">index</a> |
       <a href="../atom.xml">atom</a>/<a href="../rss.xml">rss</a> |
-      generated off rev <a href="https://github.com/tkoukpari/blog-src/commit/a6092f1a">a6092f1a</a>
+      generated off rev <a href="https://github.com/tkoukpari/blog-src/commit/f1b6bb18">f1b6bb18</a>
     </small>
   </article>
 </body>
