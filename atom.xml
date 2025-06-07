@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>https://tkoukpari.github.io/blog</id>
   <title type="text">tkoukpari&apos;s blog</title>
-  <generator uri="https://github.com/tkoukpari/blog-src" version="4f40c680">blog-src</generator>
+  <generator uri="https://github.com/tkoukpari/blog-src" version="b3582ab0">blog-src</generator>
   <updated>2025-06-06T00:00:00Z</updated>
   <author>
     <name>tkoukpari</name>
@@ -92,13 +92,13 @@ class=&quot;sourceCode ocaml&quot;&gt;&lt;code class=&quot;sourceCode ocaml&quot
 &lt;span id=&quot;cb1-2&quot;&gt;&lt;a href=&quot;#cb1-2&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;rec&lt;/span&gt; f n = &lt;span class=&quot;kw&quot;&gt;if&lt;/span&gt; n &amp;lt; &lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;then&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;else&lt;/span&gt; f (n - &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;) + f (n - &lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;) &lt;span class=&quot;kw&quot;&gt;in&lt;/span&gt;&lt;/span&gt;
 &lt;span id=&quot;cb1-3&quot;&gt;&lt;a href=&quot;#cb1-3&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;dt&quot;&gt;print_endline&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;quot;ocaml invoked by c&amp;quot;&lt;/span&gt;;&lt;/span&gt;
 &lt;span id=&quot;cb1-4&quot;&gt;&lt;a href=&quot;#cb1-4&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  f&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;the callback needs to be registered with the c runtime&lt;a href=&quot;#fn1&quot;
+&lt;p&gt;the function needs to be registered with the c runtime&lt;a href=&quot;#fn1&quot;
 class=&quot;footnote-ref&quot; id=&quot;fnref1&quot; role=&quot;doc-noteref&quot;&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;div class=&quot;sourceCode&quot; id=&quot;cb2&quot;&gt;&lt;pre
 class=&quot;sourceCode ocaml&quot;&gt;&lt;code class=&quot;sourceCode ocaml&quot;&gt;&lt;span id=&quot;cb2-1&quot;&gt;&lt;a href=&quot;#cb2-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; _ = &lt;span class=&quot;dt&quot;&gt;Callback&lt;/span&gt;.register &lt;span class=&quot;st&quot;&gt;&amp;quot;fib&amp;quot;&lt;/span&gt; fib&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;there isn’t any overhead to making swift aware of the c callback, but
-c needs to initialize the ocaml runtime and set a pointer to the ocaml
-callback&lt;a href=&quot;#fn2&quot; class=&quot;footnote-ref&quot; id=&quot;fnref2&quot;
+&lt;p&gt;there isn’t any overhead to making swift aware of the relevant c
+function, but c needs to initialize the ocaml runtime and set a pointer
+to the ocaml function&lt;a href=&quot;#fn2&quot; class=&quot;footnote-ref&quot; id=&quot;fnref2&quot;
 role=&quot;doc-noteref&quot;&gt;&lt;sup&gt;2&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;div class=&quot;sourceCode&quot; id=&quot;cb3&quot;&gt;&lt;pre class=&quot;sourceCode c&quot;&gt;&lt;code class=&quot;sourceCode c&quot;&gt;&lt;span id=&quot;cb3-1&quot;&gt;&lt;a href=&quot;#cb3-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;dt&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;dt&quot;&gt;void&lt;/span&gt; init_ocaml&lt;span class=&quot;op&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dt&quot;&gt;void&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;)&lt;/span&gt; __attribute__&lt;span class=&quot;op&quot;&gt;((&lt;/span&gt;constructor&lt;span class=&quot;op&quot;&gt;));&lt;/span&gt;&lt;/span&gt;
 &lt;span id=&quot;cb3-2&quot;&gt;&lt;a href=&quot;#cb3-2&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;dt&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;dt&quot;&gt;void&lt;/span&gt; init_ocaml&lt;span class=&quot;op&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dt&quot;&gt;void&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;op&quot;&gt;{&lt;/span&gt;&lt;/span&gt;
@@ -111,7 +111,7 @@ role=&quot;doc-noteref&quot;&gt;&lt;sup&gt;2&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;span id=&quot;cb3-9&quot;&gt;&lt;a href=&quot;#cb3-9&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;    printf&lt;span class=&quot;op&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;quot;c invoked by swift&lt;/span&gt;&lt;span class=&quot;sc&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;);&lt;/span&gt;&lt;/span&gt;
 &lt;span id=&quot;cb3-10&quot;&gt;&lt;a href=&quot;#cb3-10&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;cf&quot;&gt;return&lt;/span&gt; Int_val&lt;span class=&quot;op&quot;&gt;(&lt;/span&gt;caml_callback&lt;span class=&quot;op&quot;&gt;(*&lt;/span&gt;fib_closure&lt;span class=&quot;op&quot;&gt;,&lt;/span&gt; Val_int&lt;span class=&quot;op&quot;&gt;(&lt;/span&gt;n&lt;span class=&quot;op&quot;&gt;)));&lt;/span&gt;&lt;/span&gt;
 &lt;span id=&quot;cb3-11&quot;&gt;&lt;a href=&quot;#cb3-11&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;op&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;and finally the swift code that calls the c function:&lt;/p&gt;
+&lt;p&gt;and finally the swift code that calls into c:&lt;/p&gt;
 &lt;div class=&quot;sourceCode&quot; id=&quot;cb4&quot;&gt;&lt;pre
 class=&quot;sourceCode swift&quot;&gt;&lt;code class=&quot;sourceCode swift&quot;&gt;&lt;span id=&quot;cb4-1&quot;&gt;&lt;a href=&quot;#cb4-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;at&quot;&gt;@_silgen_name&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;quot;fib&amp;quot;&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;fu&quot;&gt;fib&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;va&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;va&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dt&quot;&gt;Int32&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;)&lt;/span&gt; -&amp;gt; &lt;span class=&quot;fu&quot;&gt;Int32&lt;/span&gt;&lt;/span&gt;
 &lt;span id=&quot;cb4-2&quot;&gt;&lt;a href=&quot;#cb4-2&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;/span&gt;
