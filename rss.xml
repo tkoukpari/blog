@@ -83,9 +83,8 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a hr
         <![CDATA[<p>now that we can <a
 href="https://mt-caret.github.io/blog/posts/2025-02-02-calling-ocaml-from-c-in-dune.html">call
 ocaml from c</a>, let’s try calling ocaml from c from swift so we can
-make ocaml iphone apps.</p>
-<p>we’ll continue to use dune instead of make. the ocaml code we want to
-run:</p>
+make ocaml iphone apps. we’ll continue to use dune instead of make.</p>
+<p>here’s the ocaml code we want to run:</p>
 <div class="sourceCode" id="cb1"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> fib =</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> <span class="kw">rec</span> f n = <span class="kw">if</span> n &lt; <span class="dv">2</span> <span class="kw">then</span> <span class="dv">1</span> <span class="kw">else</span> f (n - <span class="dv">1</span>) + f (n - <span class="dv">2</span>) <span class="kw">in</span></span>
@@ -96,7 +95,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb1-1"><a href
 <p>the <a
 href="https://ocaml.org/manual/5.3/api/Callback.html">callback</a>
 library registers ocaml values with the c runtime</p>
-<p>the c code that <a
+<p>here’s the c code that <a
 href="https://ocaml.org/manual/5.3/intfc.html">initializes the ocaml
 runtime</a> and includes a function to call the registered ocaml
 callback.</p>
@@ -126,7 +125,8 @@ class="sourceCode swift"><code class="sourceCode swift"><span id="cb3-1"><a href
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="fu">n</span> <span class="op">=</span> Int32<span class="op">(</span>CommandLine<span class="op">.</span>arguments<span class="op">[</span><span class="dv">1</span><span class="op">])!</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="va">res</span> <span class="op">=</span> fib<span class="op">(</span>n<span class="op">)</span></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>print<span class="op">(</span><span class="st">&quot;swift printing the fibonacci number for </span><span class="er">\(</span><span class="st">n): </span><span class="er">\(</span><span class="st">res)&quot;</span><span class="op">)</span></span></code></pre></div>
-<p>compiling the ocaml code into a static library:</p>
+<p>the dune file compiles the ocaml code into a static library the c
+object file, and links everything with swiftc:</p>
 <pre><code>(executables
  (names mod)
  (modes object))
@@ -135,10 +135,9 @@ class="sourceCode swift"><code class="sourceCode swift"><span id="cb3-1"><a href
  (targets libocaml.a)
  (deps mod.exe.o)
  (action
-  (run ar rcs %{targets} %{deps})))</code></pre>
-<p>compiling the c object file, and finally linking everything with
-swiftc:</p>
-<pre><code>(rule
+  (run ar rcs %{targets} %{deps})))
+
+(rule
  (targets main.o)
  (deps main.c)
  (action
@@ -161,12 +160,12 @@ swiftc:</p>
    -locaml
    -lcamlrun)))</code></pre>
 <p>and voila!</p>
-<div class="sourceCode" id="cb6"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> dune build</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> dune exe ./main 10</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="ex">c</span> invoked by swift               </span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="ex">ocaml</span> invoked by c</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="ex">swift</span> printing the fibonacci number for 10: 89</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> dune build</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> dune exe ./main 10</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ex">c</span> invoked by swift               </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="ex">ocaml</span> invoked by c</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="ex">swift</span> printing the fibonacci number for 10: 89</span></code></pre></div>
 <p>The full code is available in the <a
 href="https://github.com/tkoukpari/calling-ocaml-from-c-from-swift">calling-ocaml-from-c-from-swift</a>
 repository.</p>]]>

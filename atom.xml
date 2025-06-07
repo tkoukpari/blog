@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>https://tkoukpari.github.io/blog</id>
   <title type="text">tkoukpari&apos;s blog</title>
-  <generator uri="https://github.com/tkoukpari/blog-src" version="5b88e839">blog-src</generator>
+  <generator uri="https://github.com/tkoukpari/blog-src" version="f38a151f">blog-src</generator>
   <updated>2025-06-06T00:00:00Z</updated>
   <author>
     <name>tkoukpari</name>
@@ -88,9 +88,8 @@ class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&qu
       &lt;p&gt;now that we can &lt;a
 href=&quot;https://mt-caret.github.io/blog/posts/2025-02-02-calling-ocaml-from-c-in-dune.html&quot;&gt;call
 ocaml from c&lt;/a&gt;, let’s try calling ocaml from c from swift so we can
-make ocaml iphone apps.&lt;/p&gt;
-&lt;p&gt;we’ll continue to use dune instead of make. the ocaml code we want to
-run:&lt;/p&gt;
+make ocaml iphone apps. we’ll continue to use dune instead of make.&lt;/p&gt;
+&lt;p&gt;here’s the ocaml code we want to run:&lt;/p&gt;
 &lt;div class=&quot;sourceCode&quot; id=&quot;cb1&quot;&gt;&lt;pre
 class=&quot;sourceCode ocaml&quot;&gt;&lt;code class=&quot;sourceCode ocaml&quot;&gt;&lt;span id=&quot;cb1-1&quot;&gt;&lt;a href=&quot;#cb1-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; fib =&lt;/span&gt;
 &lt;span id=&quot;cb1-2&quot;&gt;&lt;a href=&quot;#cb1-2&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;rec&lt;/span&gt; f n = &lt;span class=&quot;kw&quot;&gt;if&lt;/span&gt; n &amp;lt; &lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;then&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;else&lt;/span&gt; f (n - &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;) + f (n - &lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;) &lt;span class=&quot;kw&quot;&gt;in&lt;/span&gt;&lt;/span&gt;
@@ -101,7 +100,7 @@ class=&quot;sourceCode ocaml&quot;&gt;&lt;code class=&quot;sourceCode ocaml&quot
 &lt;p&gt;the &lt;a
 href=&quot;https://ocaml.org/manual/5.3/api/Callback.html&quot;&gt;callback&lt;/a&gt;
 library registers ocaml values with the c runtime&lt;/p&gt;
-&lt;p&gt;the c code that &lt;a
+&lt;p&gt;here’s the c code that &lt;a
 href=&quot;https://ocaml.org/manual/5.3/intfc.html&quot;&gt;initializes the ocaml
 runtime&lt;/a&gt; and includes a function to call the registered ocaml
 callback.&lt;/p&gt;
@@ -131,7 +130,8 @@ class=&quot;sourceCode swift&quot;&gt;&lt;code class=&quot;sourceCode swift&quot
 &lt;span id=&quot;cb3-5&quot;&gt;&lt;a href=&quot;#cb3-5&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;fu&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; Int32&lt;span class=&quot;op&quot;&gt;(&lt;/span&gt;CommandLine&lt;span class=&quot;op&quot;&gt;.&lt;/span&gt;arguments&lt;span class=&quot;op&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;])!&lt;/span&gt;&lt;/span&gt;
 &lt;span id=&quot;cb3-6&quot;&gt;&lt;a href=&quot;#cb3-6&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;va&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; fib&lt;span class=&quot;op&quot;&gt;(&lt;/span&gt;n&lt;span class=&quot;op&quot;&gt;)&lt;/span&gt;&lt;/span&gt;
 &lt;span id=&quot;cb3-7&quot;&gt;&lt;a href=&quot;#cb3-7&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;print&lt;span class=&quot;op&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;quot;swift printing the fibonacci number for &lt;/span&gt;&lt;span class=&quot;er&quot;&gt;\(&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;n): &lt;/span&gt;&lt;span class=&quot;er&quot;&gt;\(&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;res)&amp;quot;&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;compiling the ocaml code into a static library:&lt;/p&gt;
+&lt;p&gt;the dune file compiles the ocaml code into a static library the c
+object file, and links everything with swiftc:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;(executables
  (names mod)
  (modes object))
@@ -140,10 +140,9 @@ class=&quot;sourceCode swift&quot;&gt;&lt;code class=&quot;sourceCode swift&quot
  (targets libocaml.a)
  (deps mod.exe.o)
  (action
-  (run ar rcs %{targets} %{deps})))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;compiling the c object file, and finally linking everything with
-swiftc:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;(rule
+  (run ar rcs %{targets} %{deps})))
+
+(rule
  (targets main.o)
  (deps main.c)
  (action
@@ -166,12 +165,12 @@ swiftc:&lt;/p&gt;
    -locaml
    -lcamlrun)))&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;and voila!&lt;/p&gt;
-&lt;div class=&quot;sourceCode&quot; id=&quot;cb6&quot;&gt;&lt;pre
-class=&quot;sourceCode bash&quot;&gt;&lt;code class=&quot;sourceCode bash&quot;&gt;&lt;span id=&quot;cb6-1&quot;&gt;&lt;a href=&quot;#cb6-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;$&lt;/span&gt; dune build&lt;/span&gt;
-&lt;span id=&quot;cb6-2&quot;&gt;&lt;a href=&quot;#cb6-2&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;$&lt;/span&gt; dune exe ./main 10&lt;/span&gt;
-&lt;span id=&quot;cb6-3&quot;&gt;&lt;a href=&quot;#cb6-3&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;c&lt;/span&gt; invoked by swift               &lt;/span&gt;
-&lt;span id=&quot;cb6-4&quot;&gt;&lt;a href=&quot;#cb6-4&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;ocaml&lt;/span&gt; invoked by c&lt;/span&gt;
-&lt;span id=&quot;cb6-5&quot;&gt;&lt;a href=&quot;#cb6-5&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;swift&lt;/span&gt; printing the fibonacci number for 10: 89&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;sourceCode&quot; id=&quot;cb5&quot;&gt;&lt;pre
+class=&quot;sourceCode bash&quot;&gt;&lt;code class=&quot;sourceCode bash&quot;&gt;&lt;span id=&quot;cb5-1&quot;&gt;&lt;a href=&quot;#cb5-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;$&lt;/span&gt; dune build&lt;/span&gt;
+&lt;span id=&quot;cb5-2&quot;&gt;&lt;a href=&quot;#cb5-2&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;$&lt;/span&gt; dune exe ./main 10&lt;/span&gt;
+&lt;span id=&quot;cb5-3&quot;&gt;&lt;a href=&quot;#cb5-3&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;c&lt;/span&gt; invoked by swift               &lt;/span&gt;
+&lt;span id=&quot;cb5-4&quot;&gt;&lt;a href=&quot;#cb5-4&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;ocaml&lt;/span&gt; invoked by c&lt;/span&gt;
+&lt;span id=&quot;cb5-5&quot;&gt;&lt;a href=&quot;#cb5-5&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;swift&lt;/span&gt; printing the fibonacci number for 10: 89&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;The full code is available in the &lt;a
 href=&quot;https://github.com/tkoukpari/calling-ocaml-from-c-from-swift&quot;&gt;calling-ocaml-from-c-from-swift&lt;/a&gt;
 repository.&lt;/p&gt;
