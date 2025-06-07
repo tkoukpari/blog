@@ -152,9 +152,9 @@ class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="ex">c</span> invoked by swift               </span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="ex">ocaml</span> invoked by c</span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="ex">swift</span> printing the fibonacci number for 10: 89</span></code></pre></div>
-<p>The full code is available in the <a
+<p>the full code is available in the <a
 href="https://github.com/tkoukpari/calling-ocaml-from-c-from-swift">calling-ocaml-from-c-from-swift</a>
-repository.</p>
+repository</p>
 <section id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />

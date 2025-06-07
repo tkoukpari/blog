@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>https://tkoukpari.github.io/blog</id>
   <title type="text">tkoukpari&apos;s blog</title>
-  <generator uri="https://github.com/tkoukpari/blog-src" version="f1b6bb18">blog-src</generator>
+  <generator uri="https://github.com/tkoukpari/blog-src" version="4a8c98f0">blog-src</generator>
   <updated>2025-06-06T00:00:00Z</updated>
   <author>
     <name>tkoukpari</name>
@@ -159,9 +159,9 @@ class=&quot;sourceCode bash&quot;&gt;&lt;code class=&quot;sourceCode bash&quot;&
 &lt;span id=&quot;cb7-3&quot;&gt;&lt;a href=&quot;#cb7-3&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;c&lt;/span&gt; invoked by swift               &lt;/span&gt;
 &lt;span id=&quot;cb7-4&quot;&gt;&lt;a href=&quot;#cb7-4&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;ocaml&lt;/span&gt; invoked by c&lt;/span&gt;
 &lt;span id=&quot;cb7-5&quot;&gt;&lt;a href=&quot;#cb7-5&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;swift&lt;/span&gt; printing the fibonacci number for 10: 89&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;The full code is available in the &lt;a
+&lt;p&gt;the full code is available in the &lt;a
 href=&quot;https://github.com/tkoukpari/calling-ocaml-from-c-from-swift&quot;&gt;calling-ocaml-from-c-from-swift&lt;/a&gt;
-repository.&lt;/p&gt;
+repository&lt;/p&gt;
 &lt;section id=&quot;footnotes&quot; class=&quot;footnotes footnotes-end-of-document&quot;
 role=&quot;doc-endnotes&quot;&gt;
 &lt;hr /&gt;
