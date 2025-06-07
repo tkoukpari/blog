@@ -43,23 +43,23 @@
             role="doc-noteref"><sup>1</sup></a></p>
             <div class="sourceCode" id="cb2"><pre
             class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> _ = <span class="dt">Callback</span>.register <span class="st">&quot;fib&quot;</span> fib</span></code></pre></div>
-            <p>the c code needs to initializes the ocaml runtime<a
+            <p>there isn’t any overhead to making swift aware of the c
+            callback, so that can simply be included in the c file</p>
+            <div class="sourceCode" id="cb3"><pre
+            class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> fib<span class="op">(</span><span class="dt">int</span> n<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">&quot;c invoked by swift</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> Int_val<span class="op">(</span>caml_callback<span class="op">(*</span>fib_closure<span class="op">,</span> Val_int<span class="op">(</span>n<span class="op">)));</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+            <p>but the c code needs to initialize the ocaml runtime<a
             href="#fn2" class="footnote-ref" id="fnref2"
             role="doc-noteref"><sup>2</sup></a></p>
-            <div class="sourceCode" id="cb3"><pre
-            class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">static</span> <span class="dt">void</span> init_ocaml<span class="op">(</span><span class="dt">void</span><span class="op">)</span> __attribute__<span class="op">((</span>constructor<span class="op">));</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="dt">static</span> <span class="dt">void</span> init_ocaml<span class="op">(</span><span class="dt">void</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> <span class="op">*</span>argv<span class="op">[]</span> <span class="op">=</span> <span class="op">{</span><span class="st">&quot;main&quot;</span><span class="op">,</span> NULL<span class="op">};</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    caml_startup<span class="op">(</span>argv<span class="op">);</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    fib_closure <span class="op">=</span> caml_named_value<span class="op">(</span><span class="st">&quot;fib&quot;</span><span class="op">);</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-            <p>there isn’t any overhead to making swift aware of the c
-            callback so that simply be included in the c file</p>
             <div class="sourceCode" id="cb4"><pre
-            class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> fib<span class="op">(</span><span class="dt">int</span> n<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">&quot;c invoked by swift</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> Int_val<span class="op">(</span>caml_callback<span class="op">(*</span>fib_closure<span class="op">,</span> Val_int<span class="op">(</span>n<span class="op">)));</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+            class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dt">static</span> <span class="dt">void</span> init_ocaml<span class="op">(</span><span class="dt">void</span><span class="op">)</span> __attribute__<span class="op">((</span>constructor<span class="op">));</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="dt">static</span> <span class="dt">void</span> init_ocaml<span class="op">(</span><span class="dt">void</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> <span class="op">*</span>argv<span class="op">[]</span> <span class="op">=</span> <span class="op">{</span><span class="st">&quot;main&quot;</span><span class="op">,</span> NULL<span class="op">};</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    caml_startup<span class="op">(</span>argv<span class="op">);</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    fib_closure <span class="op">=</span> caml_named_value<span class="op">(</span><span class="st">&quot;fib&quot;</span><span class="op">);</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
             <p>and finally the swift code that calls the c function:</p>
             <div class="sourceCode" id="cb5"><pre
             class="sourceCode swift"><code class="sourceCode swift"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="at">@_silgen_name</span><span class="op">(</span><span class="st">&quot;fib&quot;</span><span class="op">)</span> <span class="kw">func</span> <span class="fu">fib</span><span class="op">(</span><span class="va">_</span> <span class="va">n</span><span class="op">:</span> <span class="dt">Int32</span><span class="op">)</span> -&gt; <span class="fu">Int32</span></span>
@@ -133,7 +133,7 @@
     <small>
       <a href="../index.html">index</a> |
       <a href="../atom.xml">atom</a>/<a href="../rss.xml">rss</a> |
-      generated off rev <a href="https://github.com/tkoukpari/blog-src/commit/0b3d9627">0b3d9627</a>
+      generated off rev <a href="https://github.com/tkoukpari/blog-src/commit/64be7a0e">64be7a0e</a>
     </small>
   </article>
 </body>
