@@ -67,8 +67,8 @@
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="fu">n</span> <span class="op">=</span> Int32<span class="op">(</span>CommandLine<span class="op">.</span>arguments<span class="op">[</span><span class="dv">1</span><span class="op">])!</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="va">res</span> <span class="op">=</span> fib<span class="op">(</span>n<span class="op">)</span></span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>print<span class="op">(</span><span class="st">&quot;swift printing the fibonacci number for </span><span class="er">\(</span><span class="st">n): </span><span class="er">\(</span><span class="st">res)&quot;</span><span class="op">)</span></span></code></pre></div>
-            <p>we’ll use dune to compile the ocaml code into a static
-            library, compile the c object file, and link everything with
+            <p>dune compiles the ocaml code into a static library,
+            compiles the c object file, and links everything with
             swiftc:</p>
             <pre><code>(executables
  (names mod)
@@ -102,7 +102,7 @@
    .
    -locaml
    -lcamlrun)))</code></pre>
-            <p>and voila!</p>
+            <p>and voila! time to get schwifty</p>
             <div class="sourceCode" id="cb7"><pre
             class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> dune build</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> dune exe ./main 10</span>
@@ -133,7 +133,7 @@
     <small>
       <a href="../index.html">index</a> |
       <a href="../atom.xml">atom</a>/<a href="../rss.xml">rss</a> |
-      generated off rev <a href="https://github.com/tkoukpari/blog-src/commit/c4c1d753">c4c1d753</a>
+      generated off rev <a href="https://github.com/tkoukpari/blog-src/commit/1c4db47a">1c4db47a</a>
     </small>
   </article>
 </body>

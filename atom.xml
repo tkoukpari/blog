@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>https://tkoukpari.github.io/blog</id>
   <title type="text">tkoukpari&apos;s blog</title>
-  <generator uri="https://github.com/tkoukpari/blog-src" version="c4c1d753">blog-src</generator>
+  <generator uri="https://github.com/tkoukpari/blog-src" version="1c4db47a">blog-src</generator>
   <updated>2025-06-06T00:00:00Z</updated>
   <author>
     <name>tkoukpari</name>
@@ -117,8 +117,8 @@ class=&quot;sourceCode swift&quot;&gt;&lt;code class=&quot;sourceCode swift&quot
 &lt;span id=&quot;cb5-3&quot;&gt;&lt;a href=&quot;#cb5-3&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;fu&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; Int32&lt;span class=&quot;op&quot;&gt;(&lt;/span&gt;CommandLine&lt;span class=&quot;op&quot;&gt;.&lt;/span&gt;arguments&lt;span class=&quot;op&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;])!&lt;/span&gt;&lt;/span&gt;
 &lt;span id=&quot;cb5-4&quot;&gt;&lt;a href=&quot;#cb5-4&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;va&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; fib&lt;span class=&quot;op&quot;&gt;(&lt;/span&gt;n&lt;span class=&quot;op&quot;&gt;)&lt;/span&gt;&lt;/span&gt;
 &lt;span id=&quot;cb5-5&quot;&gt;&lt;a href=&quot;#cb5-5&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;print&lt;span class=&quot;op&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;quot;swift printing the fibonacci number for &lt;/span&gt;&lt;span class=&quot;er&quot;&gt;\(&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;n): &lt;/span&gt;&lt;span class=&quot;er&quot;&gt;\(&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;res)&amp;quot;&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;we’ll use dune to compile the ocaml code into a static library,
-compile the c object file, and link everything with swiftc:&lt;/p&gt;
+&lt;p&gt;dune compiles the ocaml code into a static library, compiles the c
+object file, and links everything with swiftc:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;(executables
  (names mod)
  (modes object))
@@ -151,7 +151,7 @@ compile the c object file, and link everything with swiftc:&lt;/p&gt;
    .
    -locaml
    -lcamlrun)))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;and voila!&lt;/p&gt;
+&lt;p&gt;and voila! time to get schwifty&lt;/p&gt;
 &lt;div class=&quot;sourceCode&quot; id=&quot;cb7&quot;&gt;&lt;pre
 class=&quot;sourceCode bash&quot;&gt;&lt;code class=&quot;sourceCode bash&quot;&gt;&lt;span id=&quot;cb7-1&quot;&gt;&lt;a href=&quot;#cb7-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;$&lt;/span&gt; dune build&lt;/span&gt;
 &lt;span id=&quot;cb7-2&quot;&gt;&lt;a href=&quot;#cb7-2&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;$&lt;/span&gt; dune exe ./main 10&lt;/span&gt;
