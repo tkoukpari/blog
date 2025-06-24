@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>tkoukpari&apos;s blog</title>
+    <link>https://tkoukpari.github.io/blog</link>
+    <description><![CDATA[tkoukpari's blog]]></description>
+    <atom:link href="https://tkoukpari.github.io/blog/rss.xml" rel="self" type="application/rss+xml"/>
+    <docs>https://www.rssboard.org/rss-specification</docs>
+    <generator>blog-src</generator>
+    <item>
+      <title>blog 1</title>
+      <link>https://tkoukpari.github.io/blog/2025-05-31-blog-1</link>
+      <description>
+        <![CDATA[<p>welcome to my technical blog. I’ll write about tech (mostly ocaml
+related), math, economics, and other topics.</p>
+<p>I also have a farsi-language <a
+href="https://tiamkoukpari.com">personal website</a> with my art</p>]]>
+      </description>
+      <pubDate>Sat, 31 May 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>python lists</title>
+      <link>https://tkoukpari.github.io/blog/2025-06-01-python-lists</link>
+      <description>
+        <![CDATA[<p>before anything I’m going to familiarize myself with writing
+markdown. here’s a blog about how to make python lists in ocaml. I
+assume basic knowledge of ocaml, ocaml variants, and types.</p>
+<p>in ocaml, lists are linked lists of elements of the same type:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> &#39;a <span class="dt">list</span> = </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  | [] </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  | (::) <span class="kw">of</span> &#39;a * &#39;a <span class="dt">list</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> ints = (::) (<span class="dv">1</span>, (::) (<span class="dv">2</span>, (::) (<span class="dv">3</span>, [])))</span></code></pre></div>
+<p>a list can be empty, or it can have a value of type <code>'a</code>
+and a pointer to the next element, which must also be a
+<code>'a list</code>. syntax sugar will convert <code>ints</code>
+into:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> ints = [ <span class="dv">1</span>; <span class="dv">2</span>; <span class="dv">3</span> ]</span></code></pre></div>
+<p>we’ll make it possible to have a list containing entirely different
+types using generalized algebraic data types (gadts). normal variants
+are a special case of gadt where all constructors have the same type
+(type <code>t</code>):</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> t =</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  | A : t</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  | B : <span class="dt">int</span>    -&gt; t</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  | C : <span class="dt">string</span> -&gt; t</span></code></pre></div>
+<p>gadts in general don’t require that property:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> _ t =</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  | A : <span class="dt">unit</span> t</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  | B : <span class="dt">int</span> -&gt; <span class="dt">int</span> t</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  | C : <span class="dt">string</span> -&gt; <span class="dt">string</span> t</span></code></pre></div>
+<h3 id="python-lists-using-gadts">python lists using gadts</h3>
+<p>we can rewrite our list as a gadt and point each element to a list
+with a possibly different element type:</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> _ <span class="dt">list</span> = </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  | []   : <span class="dt">unit</span> <span class="dt">list</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  | (::) : &#39;a * &#39;b <span class="dt">list</span> -&gt; (&#39;a * &#39;b) <span class="dt">list</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> things : (<span class="dt">string</span> * (<span class="dt">int</span> * <span class="dt">unit</span>)) <span class="dt">list</span> = (::) (<span class="st">&quot;hi&quot;</span>, (::) (<span class="dv">1</span>, []))</span></code></pre></div>
+<p>syntax sugar will convert <code>things</code> into:</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> things = [ <span class="st">&quot;hi&quot;</span>; <span class="dv">1</span> ]</span></code></pre></div>
+<p>a strongly typed python list</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>things <span class="op">=</span> [ <span class="st">&quot;hi&quot;</span>, <span class="dv">1</span> ]</span></code></pre></div>]]>
+      </description>
+      <pubDate>Sun, 01 Jun 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>calling ocaml from c from swift</title>
+      <link>https://tkoukpari.github.io/blog/2025-06-06-calling-ocaml-from-c-from-swift</link>
+      <description>
+        <![CDATA[<p>now that we can <a
+href="https://mt-caret.github.io/blog/posts/2025-02-02-calling-ocaml-from-c-in-dune.html">call
+ocaml from c</a>, let’s try calling ocaml from c from swift so we can
+make ocaml iphone apps.</p>
+<p>here’s the ocaml code we’ll want to run:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> fib =</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> <span class="kw">rec</span> f n = <span class="kw">if</span> n &lt; <span class="dv">2</span> <span class="kw">then</span> <span class="dv">1</span> <span class="kw">else</span> f (n - <span class="dv">1</span>) + f (n - <span class="dv">2</span>) <span class="kw">in</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">print_endline</span> <span class="st">&quot;ocaml invoked by c&quot;</span>;</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  f</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> _ = <span class="dt">Callback</span>.register <span class="st">&quot;fib&quot;</span> fib</span></code></pre></div>
+<p>the closure needs to be registered with the c runtime<a href="#fn1"
+class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>there isn’t any overhead to making swift aware of the c code, but c
+needs to initialize the ocaml runtime and set a pointer to the ocaml
+closure<a href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">static</span> <span class="dt">void</span> init_ocaml<span class="op">(</span><span class="dt">void</span><span class="op">)</span> __attribute__<span class="op">((</span>constructor<span class="op">));</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="dt">static</span> <span class="dt">void</span> init_ocaml<span class="op">(</span><span class="dt">void</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> <span class="op">*</span>argv<span class="op">[]</span> <span class="op">=</span> <span class="op">{</span><span class="st">&quot;main&quot;</span><span class="op">,</span> NULL<span class="op">};</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    caml_startup<span class="op">(</span>argv<span class="op">);</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    fib_closure <span class="op">=</span> caml_named_value<span class="op">(</span><span class="st">&quot;fib&quot;</span><span class="op">);</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> fib<span class="op">(</span><span class="dt">int</span> n<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">&quot;c invoked by swift</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> Int_val<span class="op">(</span>caml_callback<span class="op">(*</span>fib_closure<span class="op">,</span> Val_int<span class="op">(</span>n<span class="op">)));</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>and finally the swift code that calls into c:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode swift"><code class="sourceCode swift"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="at">@_silgen_name</span><span class="op">(</span><span class="st">&quot;fib&quot;</span><span class="op">)</span> <span class="kw">func</span> <span class="fu">fib</span><span class="op">(</span><span class="va">_</span> <span class="va">n</span><span class="op">:</span> <span class="dt">Int32</span><span class="op">)</span> -&gt; <span class="fu">Int32</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="fu">n</span> <span class="op">=</span> Int32<span class="op">(</span>CommandLine<span class="op">.</span>arguments<span class="op">[</span><span class="dv">1</span><span class="op">])!</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="va">res</span> <span class="op">=</span> fib<span class="op">(</span>n<span class="op">)</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>print<span class="op">(</span><span class="st">&quot;swift printing the fibonacci number for </span><span class="er">\(</span><span class="st">n): </span><span class="er">\(</span><span class="st">res)&quot;</span><span class="op">)</span></span></code></pre></div>
+<p>dune compiles the ocaml code into a static library, compiles the c
+object file, and links everything with swiftc:</p>
+<pre><code>(executables
+ (names mod)
+ (modes object))
+
+(rule
+ (targets libocaml.a)
+ (deps mod.exe.o)
+ (action
+  (run ar rcs %{targets} %{deps})))
+
+(rule
+ (targets main.o)
+ (deps main.c)
+ (action
+  (run clang -c -I %{ocaml_where} main.c -o main.o)))
+
+(rule
+ (targets main)
+ (deps main.swift main.o)
+ (action
+  (run
+   swiftc
+   main.swift
+   main.o
+   -o
+   main
+   -L
+   %{ocaml_where}
+   -L
+   .
+   -locaml
+   -lcamlrun)))</code></pre>
+<p>and voila! time to get schwifty</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> dune build</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> dune exe ./main 10</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ex">c</span> invoked by swift               </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="ex">ocaml</span> invoked by c</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="ex">swift</span> printing the fibonacci number for 10: 89</span></code></pre></div>
+<p>the full code is available in the <a
+href="https://github.com/tkoukpari/calling-ocaml-from-c-from-swift">calling-ocaml-from-c-from-swift</a>
+repository</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p><a
+href="https://ocaml.org/manual/5.3/api/Callback.html">caml.org/manual/5.3/api/Callback.html</a><a
+href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p><a
+href="https://ocaml.org/manual/5.3/intfc.html">ocaml.org/manual/5.3/intfc.html</a><a
+href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>]]>
+      </description>
+      <pubDate>Fri, 06 Jun 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>politicking</title>
+      <link>https://tkoukpari.github.io/blog/2025-06-21-politicking</link>
+      <description>
+        <![CDATA[<p>my immediate reaction to the conflict:</p>
+<ul>
+<li><p>Israel is an existential threat to Iran</p></li>
+<li><p>Iran should claim neutrality. why would anyone pitch their entire
+ideology on being against the greatest military power in earth’s history
+(and their proxy state in the region)</p></li>
+<li><p>it would be devastating if Iran did not start a run for a nuke
+the second she was attacked. Larijani said as much <a
+href="https://www.memri.org/tv/khamenei-advisor-ali-larijani-america-attack-iran-push-nuclear-weapons">a
+few months ago</a></p></li>
+</ul>
+<p>perhaps an exerpt from a poem, by Dylan Thomas:</p>
+<p>Do not go gentle into that good night, <br> Old age should burn and
+rave at close of day; <br> Rage, rage against the dying of the light.
+<br></p>
+<p>Though wise men at their end know dark is right, <br> Because their
+words had forked no lightning they <br> Do not go gentle into that good
+night. <br></p>
+<p>…</p>
+<p>And you, my father, there on the sad height, <br> Curse, bless, me
+now with your fierce tears, I pray. <br> Do not go gentle into that good
+night. <br> Rage, rage against the dying of the light. <br></p>]]>
+      </description>
+      <pubDate>Sat, 21 Jun 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>fool me twice</title>
+      <link>https://tkoukpari.github.io/blog/2025-06-22-fool-me-twice</link>
+      <description>
+        <![CDATA[<p>what did that guy say? fool me once, shame on you. fool me… you can’t
+get fooled again</p>]]>
+      </description>
+      <pubDate>Sun, 22 Jun 2025 00:00:00 GMT</pubDate>
+    </item>
+  </channel>
+</rss>

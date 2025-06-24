@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <id>https://tkoukpari.github.io/blog</id>
+  <title type="text">tkoukpari&apos;s blog</title>
+  <generator uri="https://github.com/tkoukpari/blog-src" version="883bc26a">blog-src</generator>
+  <updated>2025-06-22T00:00:00Z</updated>
+  <author>
+    <name>tkoukpari</name>
+  </author>
+  <link href="https://tkoukpari.github.io/blog/atom.xml" rel="self"/>
+  <entry>
+    <id>tag:tkoukpari.github.io,2025-05-31:7bf5718b-6e7a-4e38-bd60-b45d0c3cc163</id>
+    <title type="text">blog 1</title>
+    <updated>2025-05-31T00:00:00Z</updated>
+    <published>2025-05-31T00:00:00Z</published>
+    <content type="html">
+      &lt;p&gt;welcome to my technical blog. I’ll write about tech (mostly ocaml
+related), math, economics, and other topics.&lt;/p&gt;
+&lt;p&gt;I also have a farsi-language &lt;a
+href=&quot;https://tiamkoukpari.com&quot;&gt;personal website&lt;/a&gt; with my art&lt;/p&gt;
+    </content>
+    <link href="https://tkoukpari.github.io/blog/2025-05-31-blog-1" rel="alternate"/>
+  </entry>
+  <entry>
+    <id>tag:tkoukpari.github.io,2025-06-01:f0970c25-c8d2-48a8-9be8-e11b218a1844</id>
+    <title type="text">python lists</title>
+    <updated>2025-06-01T00:00:00Z</updated>
+    <published>2025-06-01T00:00:00Z</published>
+    <content type="html">
+      &lt;p&gt;before anything I’m going to familiarize myself with writing
+markdown. here’s a blog about how to make python lists in ocaml. I
+assume basic knowledge of ocaml, ocaml variants, and types.&lt;/p&gt;
+&lt;p&gt;in ocaml, lists are linked lists of elements of the same type:&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot; id=&quot;cb1&quot;&gt;&lt;pre
+class=&quot;sourceCode ocaml&quot;&gt;&lt;code class=&quot;sourceCode ocaml&quot;&gt;&lt;span id=&quot;cb1-1&quot;&gt;&lt;a href=&quot;#cb1-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;type&lt;/span&gt; &amp;#39;a &lt;span class=&quot;dt&quot;&gt;list&lt;/span&gt; = &lt;/span&gt;
+&lt;span id=&quot;cb1-2&quot;&gt;&lt;a href=&quot;#cb1-2&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | [] &lt;/span&gt;
+&lt;span id=&quot;cb1-3&quot;&gt;&lt;a href=&quot;#cb1-3&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | (::) &lt;span class=&quot;kw&quot;&gt;of&lt;/span&gt; &amp;#39;a * &amp;#39;a &lt;span class=&quot;dt&quot;&gt;list&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb1-4&quot;&gt;&lt;a href=&quot;#cb1-4&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id=&quot;cb1-5&quot;&gt;&lt;a href=&quot;#cb1-5&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; ints = (::) (&lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;, (::) (&lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;, (::) (&lt;span class=&quot;dv&quot;&gt;3&lt;/span&gt;, [])))&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;a list can be empty, or it can have a value of type &lt;code&gt;&apos;a&lt;/code&gt;
+and a pointer to the next element, which must also be a
+&lt;code&gt;&apos;a list&lt;/code&gt;. syntax sugar will convert &lt;code&gt;ints&lt;/code&gt;
+into:&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot; id=&quot;cb2&quot;&gt;&lt;pre
+class=&quot;sourceCode ocaml&quot;&gt;&lt;code class=&quot;sourceCode ocaml&quot;&gt;&lt;span id=&quot;cb2-1&quot;&gt;&lt;a href=&quot;#cb2-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; ints = [ &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;; &lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;; &lt;span class=&quot;dv&quot;&gt;3&lt;/span&gt; ]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;we’ll make it possible to have a list containing entirely different
+types using generalized algebraic data types (gadts). normal variants
+are a special case of gadt where all constructors have the same type
+(type &lt;code&gt;t&lt;/code&gt;):&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot; id=&quot;cb3&quot;&gt;&lt;pre
+class=&quot;sourceCode ocaml&quot;&gt;&lt;code class=&quot;sourceCode ocaml&quot;&gt;&lt;span id=&quot;cb3-1&quot;&gt;&lt;a href=&quot;#cb3-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;type&lt;/span&gt; t =&lt;/span&gt;
+&lt;span id=&quot;cb3-2&quot;&gt;&lt;a href=&quot;#cb3-2&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | A : t&lt;/span&gt;
+&lt;span id=&quot;cb3-3&quot;&gt;&lt;a href=&quot;#cb3-3&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | B : &lt;span class=&quot;dt&quot;&gt;int&lt;/span&gt;    -&amp;gt; t&lt;/span&gt;
+&lt;span id=&quot;cb3-4&quot;&gt;&lt;a href=&quot;#cb3-4&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | C : &lt;span class=&quot;dt&quot;&gt;string&lt;/span&gt; -&amp;gt; t&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;gadts in general don’t require that property:&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot; id=&quot;cb4&quot;&gt;&lt;pre
+class=&quot;sourceCode ocaml&quot;&gt;&lt;code class=&quot;sourceCode ocaml&quot;&gt;&lt;span id=&quot;cb4-1&quot;&gt;&lt;a href=&quot;#cb4-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;type&lt;/span&gt; _ t =&lt;/span&gt;
+&lt;span id=&quot;cb4-2&quot;&gt;&lt;a href=&quot;#cb4-2&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | A : &lt;span class=&quot;dt&quot;&gt;unit&lt;/span&gt; t&lt;/span&gt;
+&lt;span id=&quot;cb4-3&quot;&gt;&lt;a href=&quot;#cb4-3&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | B : &lt;span class=&quot;dt&quot;&gt;int&lt;/span&gt; -&amp;gt; &lt;span class=&quot;dt&quot;&gt;int&lt;/span&gt; t&lt;/span&gt;
+&lt;span id=&quot;cb4-4&quot;&gt;&lt;a href=&quot;#cb4-4&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | C : &lt;span class=&quot;dt&quot;&gt;string&lt;/span&gt; -&amp;gt; &lt;span class=&quot;dt&quot;&gt;string&lt;/span&gt; t&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id=&quot;python-lists-using-gadts&quot;&gt;python lists using gadts&lt;/h3&gt;
+&lt;p&gt;we can rewrite our list as a gadt and point each element to a list
+with a possibly different element type:&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot; id=&quot;cb5&quot;&gt;&lt;pre
+class=&quot;sourceCode ocaml&quot;&gt;&lt;code class=&quot;sourceCode ocaml&quot;&gt;&lt;span id=&quot;cb5-1&quot;&gt;&lt;a href=&quot;#cb5-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;type&lt;/span&gt; _ &lt;span class=&quot;dt&quot;&gt;list&lt;/span&gt; = &lt;/span&gt;
+&lt;span id=&quot;cb5-2&quot;&gt;&lt;a href=&quot;#cb5-2&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | []   : &lt;span class=&quot;dt&quot;&gt;unit&lt;/span&gt; &lt;span class=&quot;dt&quot;&gt;list&lt;/span&gt; &lt;/span&gt;
+&lt;span id=&quot;cb5-3&quot;&gt;&lt;a href=&quot;#cb5-3&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | (::) : &amp;#39;a * &amp;#39;b &lt;span class=&quot;dt&quot;&gt;list&lt;/span&gt; -&amp;gt; (&amp;#39;a * &amp;#39;b) &lt;span class=&quot;dt&quot;&gt;list&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb5-4&quot;&gt;&lt;a href=&quot;#cb5-4&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id=&quot;cb5-5&quot;&gt;&lt;a href=&quot;#cb5-5&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; things : (&lt;span class=&quot;dt&quot;&gt;string&lt;/span&gt; * (&lt;span class=&quot;dt&quot;&gt;int&lt;/span&gt; * &lt;span class=&quot;dt&quot;&gt;unit&lt;/span&gt;)) &lt;span class=&quot;dt&quot;&gt;list&lt;/span&gt; = (::) (&lt;span class=&quot;st&quot;&gt;&amp;quot;hi&amp;quot;&lt;/span&gt;, (::) (&lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;, []))&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;syntax sugar will convert &lt;code&gt;things&lt;/code&gt; into:&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot; id=&quot;cb6&quot;&gt;&lt;pre
+class=&quot;sourceCode ocaml&quot;&gt;&lt;code class=&quot;sourceCode ocaml&quot;&gt;&lt;span id=&quot;cb6-1&quot;&gt;&lt;a href=&quot;#cb6-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; things = [ &lt;span class=&quot;st&quot;&gt;&amp;quot;hi&amp;quot;&lt;/span&gt;; &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt; ]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;a strongly typed python list&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot; id=&quot;cb7&quot;&gt;&lt;pre
+class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;&lt;span id=&quot;cb7-1&quot;&gt;&lt;a href=&quot;#cb7-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;things &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; [ &lt;span class=&quot;st&quot;&gt;&amp;quot;hi&amp;quot;&lt;/span&gt;, &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt; ]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    </content>
+    <link href="https://tkoukpari.github.io/blog/2025-06-01-python-lists" rel="alternate"/>
+  </entry>
+  <entry>
+    <id>tag:tkoukpari.github.io,2025-06-06:a079e94a-23db-48c0-8162-e924bd9a851e</id>
+    <title type="text">calling ocaml from c from swift</title>
+    <updated>2025-06-06T00:00:00Z</updated>
+    <published>2025-06-06T00:00:00Z</published>
+    <content type="html">
+      &lt;p&gt;now that we can &lt;a
+href=&quot;https://mt-caret.github.io/blog/posts/2025-02-02-calling-ocaml-from-c-in-dune.html&quot;&gt;call
+ocaml from c&lt;/a&gt;, let’s try calling ocaml from c from swift so we can
+make ocaml iphone apps.&lt;/p&gt;
+&lt;p&gt;here’s the ocaml code we’ll want to run:&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot; id=&quot;cb1&quot;&gt;&lt;pre
+class=&quot;sourceCode ocaml&quot;&gt;&lt;code class=&quot;sourceCode ocaml&quot;&gt;&lt;span id=&quot;cb1-1&quot;&gt;&lt;a href=&quot;#cb1-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; fib =&lt;/span&gt;
+&lt;span id=&quot;cb1-2&quot;&gt;&lt;a href=&quot;#cb1-2&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;rec&lt;/span&gt; f n = &lt;span class=&quot;kw&quot;&gt;if&lt;/span&gt; n &amp;lt; &lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;then&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;else&lt;/span&gt; f (n - &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;) + f (n - &lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;) &lt;span class=&quot;kw&quot;&gt;in&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb1-3&quot;&gt;&lt;a href=&quot;#cb1-3&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;dt&quot;&gt;print_endline&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;quot;ocaml invoked by c&amp;quot;&lt;/span&gt;;&lt;/span&gt;
+&lt;span id=&quot;cb1-4&quot;&gt;&lt;a href=&quot;#cb1-4&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  f&lt;/span&gt;
+&lt;span id=&quot;cb1-5&quot;&gt;&lt;a href=&quot;#cb1-5&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id=&quot;cb1-6&quot;&gt;&lt;a href=&quot;#cb1-6&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; _ = &lt;span class=&quot;dt&quot;&gt;Callback&lt;/span&gt;.register &lt;span class=&quot;st&quot;&gt;&amp;quot;fib&amp;quot;&lt;/span&gt; fib&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;the closure needs to be registered with the c runtime&lt;a href=&quot;#fn1&quot;
+class=&quot;footnote-ref&quot; id=&quot;fnref1&quot; role=&quot;doc-noteref&quot;&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;there isn’t any overhead to making swift aware of the c code, but c
+needs to initialize the ocaml runtime and set a pointer to the ocaml
+closure&lt;a href=&quot;#fn2&quot; class=&quot;footnote-ref&quot; id=&quot;fnref2&quot;
+role=&quot;doc-noteref&quot;&gt;&lt;sup&gt;2&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot; id=&quot;cb2&quot;&gt;&lt;pre class=&quot;sourceCode c&quot;&gt;&lt;code class=&quot;sourceCode c&quot;&gt;&lt;span id=&quot;cb2-1&quot;&gt;&lt;a href=&quot;#cb2-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;dt&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;dt&quot;&gt;void&lt;/span&gt; init_ocaml&lt;span class=&quot;op&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dt&quot;&gt;void&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;)&lt;/span&gt; __attribute__&lt;span class=&quot;op&quot;&gt;((&lt;/span&gt;constructor&lt;span class=&quot;op&quot;&gt;));&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb2-2&quot;&gt;&lt;a href=&quot;#cb2-2&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;dt&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;dt&quot;&gt;void&lt;/span&gt; init_ocaml&lt;span class=&quot;op&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dt&quot;&gt;void&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;op&quot;&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb2-3&quot;&gt;&lt;a href=&quot;#cb2-3&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;dt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;op&quot;&gt;*&lt;/span&gt;argv&lt;span class=&quot;op&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;op&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;quot;main&amp;quot;&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;,&lt;/span&gt; NULL&lt;span class=&quot;op&quot;&gt;};&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb2-4&quot;&gt;&lt;a href=&quot;#cb2-4&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;    caml_startup&lt;span class=&quot;op&quot;&gt;(&lt;/span&gt;argv&lt;span class=&quot;op&quot;&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb2-5&quot;&gt;&lt;a href=&quot;#cb2-5&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;    fib_closure &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; caml_named_value&lt;span class=&quot;op&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;quot;fib&amp;quot;&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb2-6&quot;&gt;&lt;a href=&quot;#cb2-6&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;op&quot;&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb2-7&quot;&gt;&lt;a href=&quot;#cb2-7&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id=&quot;cb2-8&quot;&gt;&lt;a href=&quot;#cb2-8&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;dt&quot;&gt;int&lt;/span&gt; fib&lt;span class=&quot;op&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dt&quot;&gt;int&lt;/span&gt; n&lt;span class=&quot;op&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;op&quot;&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb2-9&quot;&gt;&lt;a href=&quot;#cb2-9&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;    printf&lt;span class=&quot;op&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;quot;c invoked by swift&lt;/span&gt;&lt;span class=&quot;sc&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb2-10&quot;&gt;&lt;a href=&quot;#cb2-10&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;cf&quot;&gt;return&lt;/span&gt; Int_val&lt;span class=&quot;op&quot;&gt;(&lt;/span&gt;caml_callback&lt;span class=&quot;op&quot;&gt;(*&lt;/span&gt;fib_closure&lt;span class=&quot;op&quot;&gt;,&lt;/span&gt; Val_int&lt;span class=&quot;op&quot;&gt;(&lt;/span&gt;n&lt;span class=&quot;op&quot;&gt;)));&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb2-11&quot;&gt;&lt;a href=&quot;#cb2-11&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;op&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;and finally the swift code that calls into c:&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot; id=&quot;cb3&quot;&gt;&lt;pre
+class=&quot;sourceCode swift&quot;&gt;&lt;code class=&quot;sourceCode swift&quot;&gt;&lt;span id=&quot;cb3-1&quot;&gt;&lt;a href=&quot;#cb3-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;at&quot;&gt;@_silgen_name&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;quot;fib&amp;quot;&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;fu&quot;&gt;fib&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;va&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;va&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dt&quot;&gt;Int32&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;)&lt;/span&gt; -&amp;gt; &lt;span class=&quot;fu&quot;&gt;Int32&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb3-2&quot;&gt;&lt;a href=&quot;#cb3-2&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id=&quot;cb3-3&quot;&gt;&lt;a href=&quot;#cb3-3&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;fu&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; Int32&lt;span class=&quot;op&quot;&gt;(&lt;/span&gt;CommandLine&lt;span class=&quot;op&quot;&gt;.&lt;/span&gt;arguments&lt;span class=&quot;op&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;])!&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb3-4&quot;&gt;&lt;a href=&quot;#cb3-4&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;va&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; fib&lt;span class=&quot;op&quot;&gt;(&lt;/span&gt;n&lt;span class=&quot;op&quot;&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb3-5&quot;&gt;&lt;a href=&quot;#cb3-5&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;print&lt;span class=&quot;op&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;quot;swift printing the fibonacci number for &lt;/span&gt;&lt;span class=&quot;er&quot;&gt;\(&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;n): &lt;/span&gt;&lt;span class=&quot;er&quot;&gt;\(&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;res)&amp;quot;&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;dune compiles the ocaml code into a static library, compiles the c
+object file, and links everything with swiftc:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;(executables
+ (names mod)
+ (modes object))
+
+(rule
+ (targets libocaml.a)
+ (deps mod.exe.o)
+ (action
+  (run ar rcs %{targets} %{deps})))
+
+(rule
+ (targets main.o)
+ (deps main.c)
+ (action
+  (run clang -c -I %{ocaml_where} main.c -o main.o)))
+
+(rule
+ (targets main)
+ (deps main.swift main.o)
+ (action
+  (run
+   swiftc
+   main.swift
+   main.o
+   -o
+   main
+   -L
+   %{ocaml_where}
+   -L
+   .
+   -locaml
+   -lcamlrun)))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and voila! time to get schwifty&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot; id=&quot;cb5&quot;&gt;&lt;pre
+class=&quot;sourceCode bash&quot;&gt;&lt;code class=&quot;sourceCode bash&quot;&gt;&lt;span id=&quot;cb5-1&quot;&gt;&lt;a href=&quot;#cb5-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;$&lt;/span&gt; dune build&lt;/span&gt;
+&lt;span id=&quot;cb5-2&quot;&gt;&lt;a href=&quot;#cb5-2&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;$&lt;/span&gt; dune exe ./main 10&lt;/span&gt;
+&lt;span id=&quot;cb5-3&quot;&gt;&lt;a href=&quot;#cb5-3&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;c&lt;/span&gt; invoked by swift               &lt;/span&gt;
+&lt;span id=&quot;cb5-4&quot;&gt;&lt;a href=&quot;#cb5-4&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;ocaml&lt;/span&gt; invoked by c&lt;/span&gt;
+&lt;span id=&quot;cb5-5&quot;&gt;&lt;a href=&quot;#cb5-5&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;swift&lt;/span&gt; printing the fibonacci number for 10: 89&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;the full code is available in the &lt;a
+href=&quot;https://github.com/tkoukpari/calling-ocaml-from-c-from-swift&quot;&gt;calling-ocaml-from-c-from-swift&lt;/a&gt;
+repository&lt;/p&gt;
+&lt;section id=&quot;footnotes&quot; class=&quot;footnotes footnotes-end-of-document&quot;
+role=&quot;doc-endnotes&quot;&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id=&quot;fn1&quot;&gt;&lt;p&gt;&lt;a
+href=&quot;https://ocaml.org/manual/5.3/api/Callback.html&quot;&gt;caml.org/manual/5.3/api/Callback.html&lt;/a&gt;&lt;a
+href=&quot;#fnref1&quot; class=&quot;footnote-back&quot; role=&quot;doc-backlink&quot;&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id=&quot;fn2&quot;&gt;&lt;p&gt;&lt;a
+href=&quot;https://ocaml.org/manual/5.3/intfc.html&quot;&gt;ocaml.org/manual/5.3/intfc.html&lt;/a&gt;&lt;a
+href=&quot;#fnref2&quot; class=&quot;footnote-back&quot; role=&quot;doc-backlink&quot;&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/section&gt;
+    </content>
+    <link href="https://tkoukpari.github.io/blog/2025-06-06-calling-ocaml-from-c-from-swift" rel="alternate"/>
+  </entry>
+  <entry>
+    <id>tag:tkoukpari.github.io,2025-06-21:420314da-bb77-45e0-b280-707cd69c92b8</id>
+    <title type="text">politicking</title>
+    <updated>2025-06-21T00:00:00Z</updated>
+    <published>2025-06-21T00:00:00Z</published>
+    <content type="html">
+      &lt;p&gt;my immediate reaction to the conflict:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Israel is an existential threat to Iran&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Iran should claim neutrality. why would anyone pitch their entire
+ideology on being against the greatest military power in earth’s history
+(and their proxy state in the region)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;it would be devastating if Iran did not start a run for a nuke
+the second she was attacked. Larijani said as much &lt;a
+href=&quot;https://www.memri.org/tv/khamenei-advisor-ali-larijani-america-attack-iran-push-nuclear-weapons&quot;&gt;a
+few months ago&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;perhaps an exerpt from a poem, by Dylan Thomas:&lt;/p&gt;
+&lt;p&gt;Do not go gentle into that good night, &lt;br&gt; Old age should burn and
+rave at close of day; &lt;br&gt; Rage, rage against the dying of the light.
+&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;Though wise men at their end know dark is right, &lt;br&gt; Because their
+words had forked no lightning they &lt;br&gt; Do not go gentle into that good
+night. &lt;br&gt;&lt;/p&gt;
+&lt;p&gt;…&lt;/p&gt;
+&lt;p&gt;And you, my father, there on the sad height, &lt;br&gt; Curse, bless, me
+now with your fierce tears, I pray. &lt;br&gt; Do not go gentle into that good
+night. &lt;br&gt; Rage, rage against the dying of the light. &lt;br&gt;&lt;/p&gt;
+    </content>
+    <link href="https://tkoukpari.github.io/blog/2025-06-21-politicking" rel="alternate"/>
+  </entry>
+  <entry>
+    <id>tag:tkoukpari.github.io,2025-06-22:a1ce76d2-2e52-46f7-a6da-9d0a6a1bae0a</id>
+    <title type="text">fool me twice</title>
+    <updated>2025-06-22T00:00:00Z</updated>
+    <published>2025-06-22T00:00:00Z</published>
+    <content type="html">
+      &lt;p&gt;what did that guy say? fool me once, shame on you. fool me… you can’t
+get fooled again&lt;/p&gt;
+    </content>
+    <link href="https://tkoukpari.github.io/blog/2025-06-22-fool-me-twice" rel="alternate"/>
+  </entry>
+</feed>
