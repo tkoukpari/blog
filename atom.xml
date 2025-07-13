@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>https://tkoukpari.github.io/blog</id>
   <title type="text">tkoukpari&apos;s blog</title>
-  <generator uri="https://github.com/tkoukpari/blog-src" version="530b43f4">blog-src</generator>
+  <generator uri="https://github.com/tkoukpari/blog-src" version="c28b3adb">blog-src</generator>
   <updated>2025-07-12T00:00:00Z</updated>
   <author>
     <name>tkoukpari</name>
@@ -221,17 +221,16 @@ get fooled again&lt;/p&gt;
   </entry>
   <entry>
     <id>tag:tkoukpari.github.io,2025-07-12:677dabd5-8e1e-4b0a-b6bd-99821e73ffb7</id>
-    <title type="text">versioned babel rpc</title>
+    <title type="text">versioned rpc</title>
     <updated>2025-07-12T00:00:00Z</updated>
     <published>2025-07-12T00:00:00Z</published>
     <content type="html">
-      &lt;p&gt;I’m going to write a series on rpc infrastructure: how to set up an
-ecosystem of servers, have them talk to each other via rpc, and have
-them interact with the outside world.&lt;/p&gt;
-&lt;p&gt;everything will be written in ocaml. I’ll assume knowledge of the
-code in &lt;a
-href=&quot;https://github.com/tkoukpari/rpc-infrastructure&quot;&gt;rpc-infrastructure&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;there are three relevant libraries under the server-client-rpc
+      &lt;p&gt;I’m going to write a series on ocaml rpc infrastructure: how to set
+up an ecosystem of servers, have them talk to each other via rpc, and
+have them interact with the outside world.&lt;/p&gt;
+&lt;p&gt;I’ll assume knowledge of the code in &lt;a
+href=&quot;https://github.com/tkoukpari/rpc-infrastructure&quot;&gt;rpc-infrastructure&lt;/a&gt;.
+there are three relevant libraries under the server-client-rpc
 directory. the libraries are split across server, client, and protocol
 to avoid a build dependency between server and client.&lt;/p&gt;
 &lt;p&gt;the rpc is implemented with &lt;a
@@ -240,6 +239,6 @@ straightforward to follow (two versions of a simple query and a unit
 response).&lt;/p&gt;
 &lt;p&gt;blogs in this series will be tagged with rpc-infrastructure.&lt;/p&gt;
     </content>
-    <link href="https://tkoukpari.github.io/blog/2025-07-12-versioned-babel-rpc" rel="alternate"/>
+    <link href="https://tkoukpari.github.io/blog/2025-07-12-versioned-rpc" rel="alternate"/>
   </entry>
 </feed>
