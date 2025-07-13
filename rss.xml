@@ -208,5 +208,26 @@ get fooled again</p>]]>
       </description>
       <pubDate>Sun, 22 Jun 2025 00:00:00 GMT</pubDate>
     </item>
+    <item>
+      <title>versioned babel rpc</title>
+      <link>https://tkoukpari.github.io/blog/2025-07-12-versioned-babel-rpc</link>
+      <description>
+        <![CDATA[<p>I’m going to write a series on rpc infrastructure: how to set up an
+ecosystem of servers, have them talk to each other via rpc, and have
+them interact with the outside world.</p>
+<p>everything will be written in ocaml. I’ll assume knowledge of the
+code in <a
+href="https://github.com/tkoukpari/rpc-infrastructure">rpc-infrastructure</a>.</p>
+<p>there are three relevant libraries under the server-client-rpc
+directory. the libraries are split across server, client, and protocol
+to avoid a build dependency between server and client.</p>
+<p>the rpc is implemented with <a
+href="https://github.com/janestreet/babel">babel</a> and is otherwise
+straightforward to follow (two versions of a simple query and a unit
+response).</p>
+<p>blogs in this series will be tagged with rpc-infrastructure.</p>]]>
+      </description>
+      <pubDate>Sat, 12 Jul 2025 00:00:00 GMT</pubDate>
+    </item>
   </channel>
 </rss>

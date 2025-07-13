@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!-- taken from https://github.com/jgm/pandoc-templates/blob/05d510b4dc5af87cbf25d92fa8318f44e155b919/default.html5 -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+      <meta name="dcterms.date" content="2025-07-12" />
+      <title>versioned babel rpc</title>
+  <link rel="stylesheet" href="../static/reset.css" />
+  <link rel="stylesheet" href="../static/custom.css" />
+  <link rel="stylesheet" href="../static/highlighting.css" />
+    </head>
+
+<body>
+  <div id="navigation-bar">
+    <div id="navigation-content">
+      <a href="../index.html">index</a>
+    </div>
+  </div>
+  <article>
+            <header id="title-block-header">
+      <h1 class="title">versioned babel rpc</h1>
+                        <p class="date">2025-07-12</p>
+                  <p class="category">category: <a href="../category/tech.html">tech</a></p>
+                  <p class="tags">
+        tags: <a href="../tag/ocaml.html">ocaml</a> <a href="../tag/rpc-infrastructure.html">rpc-infrastructure</a> 
+      </p>
+          </header>
+            <p>I’m going to write a series on rpc infrastructure: how to
+            set up an ecosystem of servers, have them talk to each other
+            via rpc, and have them interact with the outside world.</p>
+            <p>everything will be written in ocaml. I’ll assume
+            knowledge of the code in <a
+            href="https://github.com/tkoukpari/rpc-infrastructure">rpc-infrastructure</a>.</p>
+            <p>there are three relevant libraries under the
+            server-client-rpc directory. the libraries are split across
+            server, client, and protocol to avoid a build dependency
+            between server and client.</p>
+            <p>the rpc is implemented with <a
+            href="https://github.com/janestreet/babel">babel</a> and is
+            otherwise straightforward to follow (two versions of a
+            simple query and a unit response).</p>
+            <p>blogs in this series will be tagged with
+            rpc-infrastructure.</p>
+        <script src="https://utteranc.es/client.js" repo="tkoukpari/blog" issue-term="pathname" theme="github-light"
+      crossorigin="anonymous" async></script>
+    <hr>
+    <small>
+      <a href="../index.html">index</a> |
+      <a href="../atom.xml">atom</a>/<a href="../rss.xml">rss</a> |
+      generated off rev <a href="https://github.com/tkoukpari/blog-src/commit/530b43f4">530b43f4</a>
+    </small>
+  </article>
+</body>
+
+</html>
