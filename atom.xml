@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>https://tkoukpari.github.io/blog</id>
   <title type="text">tkoukpari&apos;s blog</title>
-  <generator uri="https://github.com/tkoukpari/blog-src" version="5fab4e15">blog-src</generator>
+  <generator uri="https://github.com/tkoukpari/blog-src" version="ceb3060a">blog-src</generator>
   <updated>2025-07-12T00:00:00Z</updated>
   <author>
     <name>tkoukpari</name>
@@ -260,8 +260,8 @@ there are three relevant libraries under the server-client-rpc
 directory. the libraries are split across server, client, and protocol
 to avoid a build dependency between server and client.&lt;/p&gt;
 &lt;p&gt;the rpc is implemented with &lt;a
-href=&quot;https://github.com/janestreet/babel&quot;&gt;babel&lt;/a&gt; and is otherwise
-straightforward to follow (two versions of a simple query and a unit
+href=&quot;https://github.com/janestreet/babel&quot;&gt;babel&lt;/a&gt; but is otherwise
+easy to follow (two versions of an &lt;code&gt;int&lt;/code&gt; query and a unit
 response).&lt;/p&gt;
 &lt;p&gt;blogs in this series will be tagged with rpc-infrastructure.&lt;/p&gt;
     </content>

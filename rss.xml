@@ -247,8 +247,8 @@ there are three relevant libraries under the server-client-rpc
 directory. the libraries are split across server, client, and protocol
 to avoid a build dependency between server and client.</p>
 <p>the rpc is implemented with <a
-href="https://github.com/janestreet/babel">babel</a> and is otherwise
-straightforward to follow (two versions of a simple query and a unit
+href="https://github.com/janestreet/babel">babel</a> but is otherwise
+easy to follow (two versions of an <code>int</code> query and a unit
 response).</p>
 <p>blogs in this series will be tagged with rpc-infrastructure.</p>]]>
       </description>
