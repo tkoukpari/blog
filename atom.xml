@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>https://tkoukpari.github.io/blog</id>
   <title type="text">tkoukpari&apos;s blog</title>
-  <generator uri="https://github.com/tkoukpari/blog-src" version="a3a67db2">blog-src</generator>
+  <generator uri="https://github.com/tkoukpari/blog-src" version="770999d3">blog-src</generator>
   <updated>2025-07-12T00:00:00Z</updated>
   <author>
     <name>tkoukpari</name>
@@ -196,14 +196,14 @@ href=&quot;https://www.memri.org/tv/khamenei-advisor-ali-larijani-america-attack
 ماه پیش&lt;/a&gt; همین را گفت&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;بخشی از یک شعر دیلن توماس:&lt;/p&gt;
-&lt;p&gt;به شب خاموش و آرام، مرو &lt;br&gt; پیری باید بسوزد و فریاد زند، در پایان
-روز &lt;br&gt; فریاد. فریاد بر مرگ فروغ‌آور &lt;br&gt;&lt;/p&gt;
+&lt;p&gt;به شب خاموش و ارام، مرو &lt;br&gt; پیری باید بسوزد و فریاد زند، در پایان
+روز &lt;br&gt; فریاد. فریاد بر مرگ فروغ‌اور &lt;br&gt;&lt;/p&gt;
 &lt;p&gt;دانایان می‌دانند تاریکی پایان راه است، &lt;br&gt; اما، چون کلام‌شان نتابید به
-شرری در دل شب &lt;br&gt; آنها به شب آرام و خاموش نمی روند &lt;br&gt;&lt;/p&gt;
+شرری در دل شب &lt;br&gt; انها به شب ارام و خاموش نمی روند &lt;br&gt;&lt;/p&gt;
 &lt;p&gt;…&lt;/p&gt;
-&lt;p&gt;و تو، پدرم، آن‌ بالا بر قله‌ی اندوه، &lt;br&gt; اکنون مرا با اشک‌های پرشورت،
-نفرین کن یا برکت ده، التماست می‌کنم &lt;br&gt; به شب خاموش و آرام، مرو &lt;br&gt;
-فریاد. فریاد بر مرگ فروغ‌آور &lt;br&gt;&lt;/p&gt;
+&lt;p&gt;و تو، پدرم، ان‌ بالا بر قله‌ی اندوه، &lt;br&gt; اکنون مرا با اشک‌های پرشورت،
+نفرین کن یا برکت ده، التماست می‌کنم &lt;br&gt; به شب خاموش و ارام، مرو &lt;br&gt;
+فریاد. فریاد بر مرگ فروغ‌اور &lt;br&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;my immediate reaction to the conflict:&lt;/p&gt;
 &lt;ul&gt;
@@ -266,5 +266,13 @@ easy to follow (two versions of an &lt;code&gt;int&lt;/code&gt; query and a
 &lt;p&gt;blogs in this series will be tagged with rpc-infrastructure.&lt;/p&gt;
     </content>
     <link href="https://tkoukpari.github.io/blog/2025-07-12-versioned-rpc" rel="alternate"/>
+  </entry>
+  <entry>
+    <id>tag:tkoukpari.github.io,2025-07-12:67ce1e84-5d8b-421c-ae2b-9eea16f41f75</id>
+    <title type="text">hosting servers on aws</title>
+    <updated>2025-07-12T00:00:00Z</updated>
+    <published>2025-07-12T00:00:00Z</published>
+    <content type="html"></content>
+    <link href="https://tkoukpari.github.io/blog/2025-07-19-hosting-servers-on-aws" rel="alternate"/>
   </entry>
 </feed>
