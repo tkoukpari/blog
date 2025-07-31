@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>https://tkoukpari.github.io/blog</id>
   <title type="text">tkoukpari&apos;s blog</title>
-  <generator uri="https://github.com/tkoukpari/blog-src" version="3e7a01cb">blog-src</generator>
+  <generator uri="https://github.com/tkoukpari/blog-src" version="25b6323f">blog-src</generator>
   <updated>2025-08-09T00:00:00Z</updated>
   <author>
     <name>tkoukpari</name>
