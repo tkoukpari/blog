@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>tkoukpari&apos;s blog</title>
+    <link>https://tkoukpari.github.io/blog</link>
+    <description><![CDATA[tkoukpari's blog]]></description>
+    <atom:link href="https://tkoukpari.github.io/blog/rss.xml" rel="self" type="application/rss+xml"/>
+    <docs>https://www.rssboard.org/rss-specification</docs>
+    <generator>blog-src</generator>
+    <item>
+      <title>blog 1</title>
+      <link>https://tkoukpari.github.io/blog/2025-05-31-blog-1</link>
+      <description>
+        <![CDATA[<p>welcome to my technical blog. I’ll write about tech (mostly ocaml),
+math, physics, and other topics.</p>
+<p>I also have a farsi-language <a
+href="https://tiamkoukpari.com">personal website</a> with my art</p>]]>
+      </description>
+      <pubDate>Sat, 31 May 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>python lists</title>
+      <link>https://tkoukpari.github.io/blog/2025-06-01-python-lists</link>
+      <description>
+        <![CDATA[<p>before anything I’m going to familiarize myself with writing
+markdown. here’s a blog about how to make python lists in ocaml. I
+assume basic knowledge of ocaml types.</p>
+<p>in ocaml, lists are linked lists of elements of the same type:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> &#39;a <span class="dt">list</span> = </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  | [] </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  | (::) <span class="kw">of</span> &#39;a * &#39;a <span class="dt">list</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> ints = (::) (<span class="dv">1</span>, (::) (<span class="dv">2</span>, (::) (<span class="dv">3</span>, [])))</span></code></pre></div>
+<p>a list can be empty, or it can have a value of type <code>'a</code>
+and a pointer to the next element, which must also be a
+<code>'a list</code>. syntax sugar will convert <code>ints</code>
+into:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> ints = [ <span class="dv">1</span>; <span class="dv">2</span>; <span class="dv">3</span> ]</span></code></pre></div>
+<p>we’ll make it possible to have a list containing entirely different
+types using generalized algebraic data types (gadts). normal variants
+are a special case of gadt where all constructors have the same type
+(type <code>t</code>):</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> t =</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  | A : t</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  | B : <span class="dt">int</span>    -&gt; t</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  | C : <span class="dt">string</span> -&gt; t</span></code></pre></div>
+<p>gadts in general don’t require that property:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> _ t =</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  | A : <span class="dt">unit</span> t</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  | B : <span class="dt">int</span> -&gt; <span class="dt">int</span> t</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  | C : <span class="dt">string</span> -&gt; <span class="dt">string</span> t</span></code></pre></div>
+<h3 id="python-lists-using-gadts">python lists using gadts</h3>
+<p>we can rewrite our list as a gadt and point each element to a list
+with a possibly different element type:</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> _ <span class="dt">list</span> = </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  | []   : <span class="dt">unit</span> <span class="dt">list</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  | (::) : &#39;a * &#39;b <span class="dt">list</span> -&gt; (&#39;a * &#39;b) <span class="dt">list</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> things : (<span class="dt">string</span> * (<span class="dt">int</span> * <span class="dt">unit</span>)) <span class="dt">list</span> = (::) (<span class="st">&quot;hi&quot;</span>, (::) (<span class="dv">1</span>, []))</span></code></pre></div>
+<p>syntax sugar will convert <code>things</code> into:</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> things = [ <span class="st">&quot;hi&quot;</span>; <span class="dv">1</span> ]</span></code></pre></div>
+<p>a strongly typed python list</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>things <span class="op">=</span> [ <span class="st">&quot;hi&quot;</span>, <span class="dv">1</span> ]</span></code></pre></div>]]>
+      </description>
+      <pubDate>Sun, 01 Jun 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>calling ocaml from c from swift</title>
+      <link>https://tkoukpari.github.io/blog/2025-06-06-calling-ocaml-from-c-from-swift</link>
+      <description>
+        <![CDATA[<p>now that we can <a
+href="https://mt-caret.github.io/blog/posts/2025-02-02-calling-ocaml-from-c-in-dune.html">call
+ocaml from c</a>, let’s try calling ocaml from c from swift so we can
+make ocaml iphone apps.</p>
+<p>here’s the ocaml code we’ll want to run:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> fib =</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> <span class="kw">rec</span> f n = <span class="kw">if</span> n &lt; <span class="dv">2</span> <span class="kw">then</span> <span class="dv">1</span> <span class="kw">else</span> f (n - <span class="dv">1</span>) + f (n - <span class="dv">2</span>) <span class="kw">in</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">print_endline</span> <span class="st">&quot;ocaml invoked by c&quot;</span>;</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  f</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> _ = <span class="dt">Callback</span>.register <span class="st">&quot;fib&quot;</span> fib</span></code></pre></div>
+<p>the closure needs to be registered with the c runtime<a href="#fn1"
+class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>there isn’t any overhead to making swift aware of the c code, but c
+needs to initialize the ocaml runtime and set a pointer to the ocaml
+closure<a href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">static</span> <span class="dt">void</span> init_ocaml<span class="op">(</span><span class="dt">void</span><span class="op">)</span> __attribute__<span class="op">((</span>constructor<span class="op">));</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="dt">static</span> <span class="dt">void</span> init_ocaml<span class="op">(</span><span class="dt">void</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> <span class="op">*</span>argv<span class="op">[]</span> <span class="op">=</span> <span class="op">{</span><span class="st">&quot;main&quot;</span><span class="op">,</span> NULL<span class="op">};</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    caml_startup<span class="op">(</span>argv<span class="op">);</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    fib_closure <span class="op">=</span> caml_named_value<span class="op">(</span><span class="st">&quot;fib&quot;</span><span class="op">);</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> fib<span class="op">(</span><span class="dt">int</span> n<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">&quot;c invoked by swift</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> Int_val<span class="op">(</span>caml_callback<span class="op">(*</span>fib_closure<span class="op">,</span> Val_int<span class="op">(</span>n<span class="op">)));</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>and finally the swift code that calls into c:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode swift"><code class="sourceCode swift"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="at">@_silgen_name</span><span class="op">(</span><span class="st">&quot;fib&quot;</span><span class="op">)</span> <span class="kw">func</span> <span class="fu">fib</span><span class="op">(</span><span class="va">_</span> <span class="va">n</span><span class="op">:</span> <span class="dt">Int32</span><span class="op">)</span> -&gt; <span class="fu">Int32</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="fu">n</span> <span class="op">=</span> Int32<span class="op">(</span>CommandLine<span class="op">.</span>arguments<span class="op">[</span><span class="dv">1</span><span class="op">])!</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="va">res</span> <span class="op">=</span> fib<span class="op">(</span>n<span class="op">)</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>print<span class="op">(</span><span class="st">&quot;swift printing the fibonacci number for </span><span class="er">\(</span><span class="st">n): </span><span class="er">\(</span><span class="st">res)&quot;</span><span class="op">)</span></span></code></pre></div>
+<p>dune compiles the ocaml code into a static library, compiles the c
+object file, and links everything with swiftc:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">executables</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a> <span class="kw">(</span><span class="ex">names</span> mod<span class="kw">)</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a> <span class="kw">(</span><span class="ex">modes</span> object<span class="kw">))</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">rule</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a> <span class="kw">(</span><span class="ex">targets</span> libocaml.a<span class="kw">)</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a> <span class="kw">(</span><span class="ex">deps</span> mod.exe.o<span class="kw">)</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a> <span class="kw">(</span><span class="ex">action</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="kw">(</span><span class="ex">run</span> ar rcs %{targets} %{deps}<span class="kw">)))</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">rule</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a> <span class="kw">(</span><span class="ex">targets</span> main.o<span class="kw">)</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a> <span class="kw">(</span><span class="ex">deps</span> main.c<span class="kw">)</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a> <span class="kw">(</span><span class="ex">action</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="kw">(</span><span class="ex">run</span> clang <span class="at">-c</span> <span class="at">-I</span> %{ocaml_where} main.c <span class="at">-o</span> main.o<span class="kw">)))</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">rule</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a> <span class="kw">(</span><span class="ex">targets</span> main<span class="kw">)</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a> <span class="kw">(</span><span class="ex">deps</span> main.swift main.o<span class="kw">)</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a> <span class="kw">(</span><span class="ex">action</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>  <span class="kw">(</span><span class="ex">run</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>   <span class="ex">swiftc</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>   <span class="ex">main.swift</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>   <span class="ex">main.o</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>   <span class="ex">-o</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>   <span class="ex">main</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>   <span class="ex">-L</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>   <span class="ex">%{ocaml_where}</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>   <span class="ex">-L</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>   <span class="bu">.</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>   <span class="ex">-locaml</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>   <span class="ex">-lcamlrun</span><span class="kw">)))</span></span></code></pre></div>
+<p>and voila! time to get schwifty</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> dune build</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> dune exe ./main 10</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ex">c</span> invoked by swift               </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="ex">ocaml</span> invoked by c</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="ex">swift</span> printing the fibonacci number for 10: 89</span></code></pre></div>
+<p>the full code is available in the <a
+href="https://github.com/tkoukpari/calling-ocaml-from-c-from-swift">calling-ocaml-from-c-from-swift</a>
+repository</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p><a
+href="https://ocaml.org/manual/5.3/api/Callback.html">caml.org/manual/5.3/api/Callback.html</a><a
+href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p><a
+href="https://ocaml.org/manual/5.3/intfc.html">ocaml.org/manual/5.3/intfc.html</a><a
+href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>]]>
+      </description>
+      <pubDate>Fri, 06 Jun 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>politicking</title>
+      <link>https://tkoukpari.github.io/blog/2025-06-21-politicking</link>
+      <description>
+        <![CDATA[<div dir="rtl">
+<p>واکنش فوری من به این درگیری:</p>
+<ul>
+<li><p>اسرائیل یک تهدید بنیادین برای ایران است</p></li>
+<li><p>ایران باید بی‌طرفی خود را اعلام کند. چرا باید کسی تمام ایدئولوژی‌اش
+را بر مخالفت با قدرتمندترین نیروی نظامی تاریخ بشر ــ و دولت نیابتی‌اش در
+منطقه ــ بنا کند؟</p></li>
+<li><p>اگر ایران در لحظه‌ی نخست حمله، برای دستیابی به سلاح هسته‌ای اقدام
+نکند، فاجعه‌بار خواهد بود. لاریجانی هم <a
+href="https://www.memri.org/tv/khamenei-advisor-ali-larijani-america-attack-iran-push-nuclear-weapons">چند
+ماه پیش</a> همین را گفت</p></li>
+</ul>
+<p>بخشی از یک شعر دیلن توماس:</p>
+<p>به شب خاموش و ارام، مرو <br> پیری باید بسوزد و فریاد زند، در پایان
+روز <br> فریاد. فریاد بر مرگ فروغ‌اور <br></p>
+<p>دانایان می‌دانند تاریکی پایان راه است، <br> اما، چون کلام‌شان نتابید به
+شرری در دل شب <br> انها به شب ارام و خاموش نمی روند <br></p>
+<p>…</p>
+<p>و تو، پدرم، ان‌ بالا بر قله‌ی اندوه، <br> اکنون مرا با اشک‌های پرشورت،
+نفرین کن یا برکت ده، التماست می‌کنم <br> به شب خاموش و ارام، مرو <br>
+فریاد. فریاد بر مرگ فروغ‌اور <br></p>
+</div>
+<p>Do not go gentle into that good night, <br> Old age should burn and
+rave at close of day; <br> Rage, rage against the dying of the light.
+<br></p>
+<p>Though wise men at their end know dark is right, <br> Because their
+words had forked no lightning they <br> Do not go gentle into that good
+night. <br></p>
+<p>…</p>
+<p>And you, my father, there on the sad height, <br> Curse, bless, me
+now with your fierce tears, I pray. <br> Do not go gentle into that good
+night. <br> Rage, rage against the dying of the light. <br></p>]]>
+      </description>
+      <pubDate>Sat, 21 Jun 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>fool me twice</title>
+      <link>https://tkoukpari.github.io/blog/2025-06-22-fool-me-twice</link>
+      <description>
+        <![CDATA[<div dir="rtl">
+<p><a href="https://www.youtube.com/watch?v=Hl7FKfl3O2Y">چی میگفت؟ یکبار
+فریبم بدی، شرمت باد. دوباره… دیگه نمی تونی دوباره فریبم بدی</a></p>
+</div>]]>
+      </description>
+      <pubDate>Sun, 22 Jun 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>intro</title>
+      <link>https://tkoukpari.github.io/blog/2025-07-19-rpcs</link>
+      <description>
+        <![CDATA[<p>I’m going to write a series on ocaml rpc infrastructure: how to set
+up an ecosystem of servers, have them talk to each other via rpc, and
+have them interact with the outside world.</p>
+<p>I’ll assume knowledge of the code in <a
+href="https://github.com/tkoukpari/rpcs">rpcs</a>. there are three
+relevant libraries under the server-client-rpc directory. the libraries
+are split across server, client, and protocol to avoid a build
+dependency between server and client.</p>
+<p>the rpc is implemented with <a
+href="https://github.com/janestreet/babel">babel</a>, but is otherwise
+easy to follow</p>]]>
+      </description>
+      <pubDate>Sat, 19 Jul 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>hosting servers on linode</title>
+      <link>https://tkoukpari.github.io/blog/2025-07-26-hosting-servers-on-linode</link>
+      <description>
+        <![CDATA[<p>first in the series is getting two different machines to communicate
+with one-another on the same private network</p>
+<p>we’re going to use linode (a.k.a. akamai) because I couldn’t figure
+out how to open an account (or pay for an account) on a few other cloud
+providers</p>
+<p>you can consider this an advertisement for linode - it was actually
+easy to use</p>
+<h3 id="setup">setup</h3>
+<p>once you have a linode account, set up a VPC and two linodes on the
+same VPC subnet</p>
+<p>ssh into each machine using <code>ssh root@IP_ADDRESS</code> and run
+the following to download dune:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt update</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">apt</span> install ocaml-dune</span></code></pre></div>
+<p>download and init opam:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get install opam</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">opam</span> init</span></code></pre></div>
+<p>clone the <a href="https://github.com/tkoukpari/rpcs">rpcs</a>
+repository with <code>git clone ... rpcs</code></p>
+<p>you can probably do all the above on a single machine, and then clone
+the machine, instead of doing everything twice</p>
+<h3 id="running-code">running code</h3>
+<p>on the first linode, run the rpc-server with:<a href="#fn1"
+class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> rpcs</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">dune</span> build</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">./_build/default/server-client-rpc/bin/main.exe</span> server 5</span></code></pre></div>
+<p><code>dune build</code> will run into
+<code>Library "X" not found</code> for some Xs… they should be installed
+with <code>opam install</code>. make sure <code>async</code> is on
+v&gt;0.17.0.</p>
+<p>on the second linode, query the server with</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> rpcs</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">dune</span> build</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">./_build/default/server-client-rpc/bin/main.exe</span> client IP_ADDRESS_OF_LINODE_1 42</span></code></pre></div>
+<p>note we’ve changed the client implementation such that the RPC client
+is created with an <code>Inet</code> address instead of a host:</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span>%bind client =</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  Rpc.Connection.client</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    (Tcp.Where_to_connect.of_inet_address</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>      (`Inet (inet_addr, <span class="dv">8080</span>)))</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>...</span></code></pre></div>
+<h3 id="service-discovery-and-other-infrastructure">service discovery
+and other infrastructure</h3>
+<p>some things that would be useful that I didn’t do:</p>
+<ol type="1">
+<li><p>have your github repository sync automatically on your linodes so
+you don’t need to <code>git pull</code> every time you make a
+change</p></li>
+<li><p>set up service discovery so that you don’t need to manually query
+with an IP address. this might be of the form “have a perma-server with
+a perma-IP address that other servers can connect to via pipe to
+subscribe to or advertise IP addresses and ports”</p></li>
+</ol>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>if you want to run the server in the background, first
+run <code>touch /tmp/ocaml-rpc-logs</code> and then append
+<code>&gt; /tmp/ocaml-rpc-logs 2&gt;&amp;1 &amp; pid=$!</code> where you
+start the server. you can kill the server with <code>kill $pid</code><a
+href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>]]>
+      </description>
+      <pubDate>Sat, 26 Jul 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>non-recursive recursive values</title>
+      <link>https://tkoukpari.github.io/blog/2025-07-28-non-recursive-recursive-values</link>
+      <description>
+        <![CDATA[<p>today, one of my work colleagues showed me how to recurse in ocaml
+without recursing.<a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a> the usual disclaimer about basic
+knowledge of ocaml types applies.</p>
+<p>consider the type:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> &#39;a t = { f : &#39;a t -&gt; &#39;a }</span></code></pre></div>
+<p>you can create an <code>f</code> by applying a <code>t.f</code> to
+itself:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> extract ({ f } <span class="kw">as</span> t) = f t</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> extract : &#39;a t -&gt; &#39;a</span></code></pre></div>
+<p>now just wrap <code>extract</code> back into a <code>t</code> and
+apply it to itself:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> recurse_forever = extract { f = extract }</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> recurse_forever : &#39;a </span></code></pre></div>
+<p>and you’ve created a diverging program without <code>rec</code></p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>M if you stumble upon this, claim credit<a
+href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>]]>
+      </description>
+      <pubDate>Mon, 28 Jul 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>open source</title>
+      <link>https://tkoukpari.github.io/blog/2025-08-09-open-source</link>
+      <description>
+        <![CDATA[<p>some of my work at jane street was recently open sourced:</p>
+<ul>
+<li><a
+href="https://github.com/janestreet/big_percent">big_percent</a></li>
+<li><a
+href="https://github.com/janestreet/insertion_ordered_map">insertion_ordered_map</a></li>
+<li><a
+href="https://github.com/janestreet/nonempty_interval_lib">nonempty_interval_lib</a></li>
+<li><a
+href="https://github.com/janestreet/ppx_anonymous_record">ppx_anonymous_record</a><a
+href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a></li>
+<li><a href="https://github.com/janestreet/ppx_array">ppx_array</a></li>
+</ul>
+<p>there have been a lot of complaints about AI companies stealing open
+source IP. I think it’s kind of neat - it gives my work some amount of
+representation</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>this inspired the <a
+href="https://tyconmismatch.com/papers/ml2024_labeled_tuples.pdf">labeled
+tuples</a> language feature<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>]]>
+      </description>
+      <pubDate>Sat, 09 Aug 2025 00:00:00 GMT</pubDate>
+    </item>
+  </channel>
+</rss>

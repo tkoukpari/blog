@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<!-- taken from https://github.com/jgm/pandoc-templates/blob/05d510b4dc5af87cbf25d92fa8318f44e155b919/default.html5 -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+      <meta name="dcterms.date" content="2025-07-19" />
+      <title>intro</title>
+  <link rel="stylesheet" href="../static/reset.css" />
+  <link rel="stylesheet" href="../static/custom.css" />
+  <link rel="stylesheet" href="../static/highlighting.css" />
+      <style>
+    code {
+      font-size: 0.9em
+    }
+
+    .sourceCode {
+      font-size: 0.93em
+    }
+
+    ul {
+      padding-left: 1em;
+      padding-right: 1em;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="navigation-bar">
+    <div id="navigation-content">
+      <a href="../index.html">index</a>
+    </div>
+  </div>
+  <article>
+            <header id="title-block-header">
+      <h1 class="title">intro</h1>
+            <p class="date">2025-07-19</p>
+                  <p class="category">category: <a href="../category/tech.html">tech</a></p>
+                  <p class="tags">
+        tags: <a href="../tag/ocaml.html">ocaml</a> 
+      </p>
+          </header>
+            <p>I’m going to write a series on ocaml rpc infrastructure:
+            how to set up an ecosystem of servers, have them talk to
+            each other via rpc, and have them interact with the outside
+            world.</p>
+            <p>I’ll assume knowledge of the code in <a
+            href="https://github.com/tkoukpari/rpcs">rpcs</a>. there are
+            three relevant libraries under the server-client-rpc
+            directory. the libraries are split across server, client,
+            and protocol to avoid a build dependency between server and
+            client.</p>
+            <p>the rpc is implemented with <a
+            href="https://github.com/janestreet/babel">babel</a>, but is
+            otherwise easy to follow</p>
+        <script src="https://utteranc.es/client.js" repo="tkoukpari/blog" issue-term="pathname" theme="github-light"
+      crossorigin="anonymous" async></script>
+    <hr>
+    <small>
+      <a href="../index.html">index</a> |
+      <a href="../atom.xml">atom</a>/<a href="../rss.xml">rss</a> |
+      generated off rev <a href="https://github.com/tkoukpari/blog-src/commit/dbfb27c5">dbfb27c5</a>
+    </small>
+  </article>
+</body>
+
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<!-- taken from https://github.com/jgm/pandoc-templates/blob/05d510b4dc5af87cbf25d92fa8318f44e155b919/default.html5 -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+      <meta name="dcterms.date" content="2025-06-06" />
+      <title>calling ocaml from c from swift</title>
+  <link rel="stylesheet" href="../static/reset.css" />
+  <link rel="stylesheet" href="../static/custom.css" />
+  <link rel="stylesheet" href="../static/highlighting.css" />
+      <style>
+    code {
+      font-size: 0.9em
+    }
+
+    .sourceCode {
+      font-size: 0.93em
+    }
+
+    ul {
+      padding-left: 1em;
+      padding-right: 1em;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="navigation-bar">
+    <div id="navigation-content">
+      <a href="../index.html">index</a>
+    </div>
+  </div>
+  <article>
+            <header id="title-block-header">
+      <h1 class="title">calling ocaml from c from swift</h1>
+            <p class="date">2025-06-06</p>
+                  <p class="category">category: <a href="../category/tech.html">tech</a></p>
+                  <p class="tags">
+        tags: <a href="../tag/dune.html">dune</a> <a href="../tag/ocaml.html">ocaml</a> <a href="../tag/swift.html">swift</a> 
+      </p>
+          </header>
+            <p>now that we can <a
+            href="https://mt-caret.github.io/blog/posts/2025-02-02-calling-ocaml-from-c-in-dune.html">call
+            ocaml from c</a>, let’s try calling ocaml from c from swift
+            so we can make ocaml iphone apps.</p>
+            <p>here’s the ocaml code we’ll want to run:</p>
+            <div class="sourceCode" id="cb1"><pre
+            class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> fib =</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> <span class="kw">rec</span> f n = <span class="kw">if</span> n &lt; <span class="dv">2</span> <span class="kw">then</span> <span class="dv">1</span> <span class="kw">else</span> f (n - <span class="dv">1</span>) + f (n - <span class="dv">2</span>) <span class="kw">in</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">print_endline</span> <span class="st">&quot;ocaml invoked by c&quot;</span>;</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  f</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> _ = <span class="dt">Callback</span>.register <span class="st">&quot;fib&quot;</span> fib</span></code></pre></div>
+            <p>the closure needs to be registered with the c runtime<a
+            href="#fn1" class="footnote-ref" id="fnref1"
+            role="doc-noteref"><sup>1</sup></a></p>
+            <p>there isn’t any overhead to making swift aware of the c
+            code, but c needs to initialize the ocaml runtime and set a
+            pointer to the ocaml closure<a href="#fn2"
+            class="footnote-ref" id="fnref2"
+            role="doc-noteref"><sup>2</sup></a></p>
+            <div class="sourceCode" id="cb2"><pre
+            class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">static</span> <span class="dt">void</span> init_ocaml<span class="op">(</span><span class="dt">void</span><span class="op">)</span> __attribute__<span class="op">((</span>constructor<span class="op">));</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="dt">static</span> <span class="dt">void</span> init_ocaml<span class="op">(</span><span class="dt">void</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> <span class="op">*</span>argv<span class="op">[]</span> <span class="op">=</span> <span class="op">{</span><span class="st">&quot;main&quot;</span><span class="op">,</span> NULL<span class="op">};</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    caml_startup<span class="op">(</span>argv<span class="op">);</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    fib_closure <span class="op">=</span> caml_named_value<span class="op">(</span><span class="st">&quot;fib&quot;</span><span class="op">);</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> fib<span class="op">(</span><span class="dt">int</span> n<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">&quot;c invoked by swift</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> Int_val<span class="op">(</span>caml_callback<span class="op">(*</span>fib_closure<span class="op">,</span> Val_int<span class="op">(</span>n<span class="op">)));</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+            <p>and finally the swift code that calls into c:</p>
+            <div class="sourceCode" id="cb3"><pre
+            class="sourceCode swift"><code class="sourceCode swift"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="at">@_silgen_name</span><span class="op">(</span><span class="st">&quot;fib&quot;</span><span class="op">)</span> <span class="kw">func</span> <span class="fu">fib</span><span class="op">(</span><span class="va">_</span> <span class="va">n</span><span class="op">:</span> <span class="dt">Int32</span><span class="op">)</span> -&gt; <span class="fu">Int32</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="fu">n</span> <span class="op">=</span> Int32<span class="op">(</span>CommandLine<span class="op">.</span>arguments<span class="op">[</span><span class="dv">1</span><span class="op">])!</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="va">res</span> <span class="op">=</span> fib<span class="op">(</span>n<span class="op">)</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>print<span class="op">(</span><span class="st">&quot;swift printing the fibonacci number for </span><span class="er">\(</span><span class="st">n): </span><span class="er">\(</span><span class="st">res)&quot;</span><span class="op">)</span></span></code></pre></div>
+            <p>dune compiles the ocaml code into a static library,
+            compiles the c object file, and links everything with
+            swiftc:</p>
+            <div class="sourceCode" id="cb4"><pre
+            class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">executables</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a> <span class="kw">(</span><span class="ex">names</span> mod<span class="kw">)</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a> <span class="kw">(</span><span class="ex">modes</span> object<span class="kw">))</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">rule</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a> <span class="kw">(</span><span class="ex">targets</span> libocaml.a<span class="kw">)</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a> <span class="kw">(</span><span class="ex">deps</span> mod.exe.o<span class="kw">)</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a> <span class="kw">(</span><span class="ex">action</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="kw">(</span><span class="ex">run</span> ar rcs %{targets} %{deps}<span class="kw">)))</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">rule</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a> <span class="kw">(</span><span class="ex">targets</span> main.o<span class="kw">)</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a> <span class="kw">(</span><span class="ex">deps</span> main.c<span class="kw">)</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a> <span class="kw">(</span><span class="ex">action</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="kw">(</span><span class="ex">run</span> clang <span class="at">-c</span> <span class="at">-I</span> %{ocaml_where} main.c <span class="at">-o</span> main.o<span class="kw">)))</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">rule</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a> <span class="kw">(</span><span class="ex">targets</span> main<span class="kw">)</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a> <span class="kw">(</span><span class="ex">deps</span> main.swift main.o<span class="kw">)</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a> <span class="kw">(</span><span class="ex">action</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>  <span class="kw">(</span><span class="ex">run</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>   <span class="ex">swiftc</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>   <span class="ex">main.swift</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>   <span class="ex">main.o</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>   <span class="ex">-o</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>   <span class="ex">main</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>   <span class="ex">-L</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>   <span class="ex">%{ocaml_where}</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>   <span class="ex">-L</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>   <span class="bu">.</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>   <span class="ex">-locaml</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>   <span class="ex">-lcamlrun</span><span class="kw">)))</span></span></code></pre></div>
+            <p>and voila! time to get schwifty</p>
+            <div class="sourceCode" id="cb5"><pre
+            class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> dune build</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> dune exe ./main 10</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ex">c</span> invoked by swift               </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="ex">ocaml</span> invoked by c</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="ex">swift</span> printing the fibonacci number for 10: 89</span></code></pre></div>
+            <p>the full code is available in the <a
+            href="https://github.com/tkoukpari/calling-ocaml-from-c-from-swift">calling-ocaml-from-c-from-swift</a>
+            repository</p>
+            <section id="footnotes"
+            class="footnotes footnotes-end-of-document"
+            role="doc-endnotes">
+            <hr />
+            <ol>
+            <li id="fn1"><p><a
+            href="https://ocaml.org/manual/5.3/api/Callback.html">caml.org/manual/5.3/api/Callback.html</a><a
+            href="#fnref1" class="footnote-back"
+            role="doc-backlink">↩︎</a></p></li>
+            <li id="fn2"><p><a
+            href="https://ocaml.org/manual/5.3/intfc.html">ocaml.org/manual/5.3/intfc.html</a><a
+            href="#fnref2" class="footnote-back"
+            role="doc-backlink">↩︎</a></p></li>
+            </ol>
+            </section>
+        <script src="https://utteranc.es/client.js" repo="tkoukpari/blog" issue-term="pathname" theme="github-light"
+      crossorigin="anonymous" async></script>
+    <hr>
+    <small>
+      <a href="../index.html">index</a> |
+      <a href="../atom.xml">atom</a>/<a href="../rss.xml">rss</a> |
+      generated off rev <a href="https://github.com/tkoukpari/blog-src/commit/dbfb27c5">dbfb27c5</a>
+    </small>
+  </article>
+</body>
+
+</html>

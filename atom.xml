@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <id>https://tkoukpari.github.io/blog</id>
+  <title type="text">tkoukpari&apos;s blog</title>
+  <generator uri="https://github.com/tkoukpari/blog-src" version="dbfb27c5">blog-src</generator>
+  <updated>2025-08-09T00:00:00Z</updated>
+  <author>
+    <name>tkoukpari</name>
+  </author>
+  <link href="https://tkoukpari.github.io/blog/atom.xml" rel="self"/>
+  <entry>
+    <id>tag:tkoukpari.github.io,2025-05-31:7bf5718b-6e7a-4e38-bd60-b45d0c3cc163</id>
+    <title type="text">blog 1</title>
+    <updated>2025-05-31T00:00:00Z</updated>
+    <published>2025-05-31T00:00:00Z</published>
+    <content type="html">
+      &lt;p&gt;welcome to my technical blog. I’ll write about tech (mostly ocaml),
+math, physics, and other topics.&lt;/p&gt;
+&lt;p&gt;I also have a farsi-language &lt;a
+href=&quot;https://tiamkoukpari.com&quot;&gt;personal website&lt;/a&gt; with my art&lt;/p&gt;
+    </content>
+    <link href="https://tkoukpari.github.io/blog/2025-05-31-blog-1" rel="alternate"/>
+  </entry>
+  <entry>
+    <id>tag:tkoukpari.github.io,2025-06-01:f0970c25-c8d2-48a8-9be8-e11b218a1844</id>
+    <title type="text">python lists</title>
+    <updated>2025-06-01T00:00:00Z</updated>
+    <published>2025-06-01T00:00:00Z</published>
+    <content type="html">
+      &lt;p&gt;before anything I’m going to familiarize myself with writing
+markdown. here’s a blog about how to make python lists in ocaml. I
+assume basic knowledge of ocaml types.&lt;/p&gt;
+&lt;p&gt;in ocaml, lists are linked lists of elements of the same type:&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot; id=&quot;cb1&quot;&gt;&lt;pre
+class=&quot;sourceCode ocaml&quot;&gt;&lt;code class=&quot;sourceCode ocaml&quot;&gt;&lt;span id=&quot;cb1-1&quot;&gt;&lt;a href=&quot;#cb1-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;type&lt;/span&gt; &amp;#39;a &lt;span class=&quot;dt&quot;&gt;list&lt;/span&gt; = &lt;/span&gt;
+&lt;span id=&quot;cb1-2&quot;&gt;&lt;a href=&quot;#cb1-2&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | [] &lt;/span&gt;
+&lt;span id=&quot;cb1-3&quot;&gt;&lt;a href=&quot;#cb1-3&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | (::) &lt;span class=&quot;kw&quot;&gt;of&lt;/span&gt; &amp;#39;a * &amp;#39;a &lt;span class=&quot;dt&quot;&gt;list&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb1-4&quot;&gt;&lt;a href=&quot;#cb1-4&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id=&quot;cb1-5&quot;&gt;&lt;a href=&quot;#cb1-5&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; ints = (::) (&lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;, (::) (&lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;, (::) (&lt;span class=&quot;dv&quot;&gt;3&lt;/span&gt;, [])))&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;a list can be empty, or it can have a value of type &lt;code&gt;&apos;a&lt;/code&gt;
+and a pointer to the next element, which must also be a
+&lt;code&gt;&apos;a list&lt;/code&gt;. syntax sugar will convert &lt;code&gt;ints&lt;/code&gt;
+into:&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot; id=&quot;cb2&quot;&gt;&lt;pre
+class=&quot;sourceCode ocaml&quot;&gt;&lt;code class=&quot;sourceCode ocaml&quot;&gt;&lt;span id=&quot;cb2-1&quot;&gt;&lt;a href=&quot;#cb2-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; ints = [ &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;; &lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;; &lt;span class=&quot;dv&quot;&gt;3&lt;/span&gt; ]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;we’ll make it possible to have a list containing entirely different
+types using generalized algebraic data types (gadts). normal variants
+are a special case of gadt where all constructors have the same type
+(type &lt;code&gt;t&lt;/code&gt;):&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot; id=&quot;cb3&quot;&gt;&lt;pre
+class=&quot;sourceCode ocaml&quot;&gt;&lt;code class=&quot;sourceCode ocaml&quot;&gt;&lt;span id=&quot;cb3-1&quot;&gt;&lt;a href=&quot;#cb3-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;type&lt;/span&gt; t =&lt;/span&gt;
+&lt;span id=&quot;cb3-2&quot;&gt;&lt;a href=&quot;#cb3-2&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | A : t&lt;/span&gt;
+&lt;span id=&quot;cb3-3&quot;&gt;&lt;a href=&quot;#cb3-3&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | B : &lt;span class=&quot;dt&quot;&gt;int&lt;/span&gt;    -&amp;gt; t&lt;/span&gt;
+&lt;span id=&quot;cb3-4&quot;&gt;&lt;a href=&quot;#cb3-4&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | C : &lt;span class=&quot;dt&quot;&gt;string&lt;/span&gt; -&amp;gt; t&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;gadts in general don’t require that property:&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot; id=&quot;cb4&quot;&gt;&lt;pre
+class=&quot;sourceCode ocaml&quot;&gt;&lt;code class=&quot;sourceCode ocaml&quot;&gt;&lt;span id=&quot;cb4-1&quot;&gt;&lt;a href=&quot;#cb4-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;type&lt;/span&gt; _ t =&lt;/span&gt;
+&lt;span id=&quot;cb4-2&quot;&gt;&lt;a href=&quot;#cb4-2&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | A : &lt;span class=&quot;dt&quot;&gt;unit&lt;/span&gt; t&lt;/span&gt;
+&lt;span id=&quot;cb4-3&quot;&gt;&lt;a href=&quot;#cb4-3&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | B : &lt;span class=&quot;dt&quot;&gt;int&lt;/span&gt; -&amp;gt; &lt;span class=&quot;dt&quot;&gt;int&lt;/span&gt; t&lt;/span&gt;
+&lt;span id=&quot;cb4-4&quot;&gt;&lt;a href=&quot;#cb4-4&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | C : &lt;span class=&quot;dt&quot;&gt;string&lt;/span&gt; -&amp;gt; &lt;span class=&quot;dt&quot;&gt;string&lt;/span&gt; t&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id=&quot;python-lists-using-gadts&quot;&gt;python lists using gadts&lt;/h3&gt;
+&lt;p&gt;we can rewrite our list as a gadt and point each element to a list
+with a possibly different element type:&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot; id=&quot;cb5&quot;&gt;&lt;pre
+class=&quot;sourceCode ocaml&quot;&gt;&lt;code class=&quot;sourceCode ocaml&quot;&gt;&lt;span id=&quot;cb5-1&quot;&gt;&lt;a href=&quot;#cb5-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;type&lt;/span&gt; _ &lt;span class=&quot;dt&quot;&gt;list&lt;/span&gt; = &lt;/span&gt;
+&lt;span id=&quot;cb5-2&quot;&gt;&lt;a href=&quot;#cb5-2&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | []   : &lt;span class=&quot;dt&quot;&gt;unit&lt;/span&gt; &lt;span class=&quot;dt&quot;&gt;list&lt;/span&gt; &lt;/span&gt;
+&lt;span id=&quot;cb5-3&quot;&gt;&lt;a href=&quot;#cb5-3&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  | (::) : &amp;#39;a * &amp;#39;b &lt;span class=&quot;dt&quot;&gt;list&lt;/span&gt; -&amp;gt; (&amp;#39;a * &amp;#39;b) &lt;span class=&quot;dt&quot;&gt;list&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb5-4&quot;&gt;&lt;a href=&quot;#cb5-4&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id=&quot;cb5-5&quot;&gt;&lt;a href=&quot;#cb5-5&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; things : (&lt;span class=&quot;dt&quot;&gt;string&lt;/span&gt; * (&lt;span class=&quot;dt&quot;&gt;int&lt;/span&gt; * &lt;span class=&quot;dt&quot;&gt;unit&lt;/span&gt;)) &lt;span class=&quot;dt&quot;&gt;list&lt;/span&gt; = (::) (&lt;span class=&quot;st&quot;&gt;&amp;quot;hi&amp;quot;&lt;/span&gt;, (::) (&lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;, []))&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;syntax sugar will convert &lt;code&gt;things&lt;/code&gt; into:&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot; id=&quot;cb6&quot;&gt;&lt;pre
+class=&quot;sourceCode ocaml&quot;&gt;&lt;code class=&quot;sourceCode ocaml&quot;&gt;&lt;span id=&quot;cb6-1&quot;&gt;&lt;a href=&quot;#cb6-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; things = [ &lt;span class=&quot;st&quot;&gt;&amp;quot;hi&amp;quot;&lt;/span&gt;; &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt; ]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;a strongly typed python list&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot; id=&quot;cb7&quot;&gt;&lt;pre
+class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;&lt;span id=&quot;cb7-1&quot;&gt;&lt;a href=&quot;#cb7-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;things &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; [ &lt;span class=&quot;st&quot;&gt;&amp;quot;hi&amp;quot;&lt;/span&gt;, &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt; ]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    </content>
+    <link href="https://tkoukpari.github.io/blog/2025-06-01-python-lists" rel="alternate"/>
+  </entry>
+  <entry>
+    <id>tag:tkoukpari.github.io,2025-06-06:a079e94a-23db-48c0-8162-e924bd9a851e</id>
+    <title type="text">calling ocaml from c from swift</title>
+    <updated>2025-06-06T00:00:00Z</updated>
+    <published>2025-06-06T00:00:00Z</published>
+    <content type="html">
+      &lt;p&gt;now that we can &lt;a
+href=&quot;https://mt-caret.github.io/blog/posts/2025-02-02-calling-ocaml-from-c-in-dune.html&quot;&gt;call
+ocaml from c&lt;/a&gt;, let’s try calling ocaml from c from swift so we can
+make ocaml iphone apps.&lt;/p&gt;
+&lt;p&gt;here’s the ocaml code we’ll want to run:&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot; id=&quot;cb1&quot;&gt;&lt;pre
+class=&quot;sourceCode ocaml&quot;&gt;&lt;code class=&quot;sourceCode ocaml&quot;&gt;&lt;span id=&quot;cb1-1&quot;&gt;&lt;a href=&quot;#cb1-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; fib =&lt;/span&gt;
+&lt;span id=&quot;cb1-2&quot;&gt;&lt;a href=&quot;#cb1-2&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;rec&lt;/span&gt; f n = &lt;span class=&quot;kw&quot;&gt;if&lt;/span&gt; n &amp;lt; &lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;then&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;else&lt;/span&gt; f (n - &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;) + f (n - &lt;span class=&quot;dv&quot;&gt;2&lt;/span&gt;) &lt;span class=&quot;kw&quot;&gt;in&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb1-3&quot;&gt;&lt;a href=&quot;#cb1-3&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;dt&quot;&gt;print_endline&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;quot;ocaml invoked by c&amp;quot;&lt;/span&gt;;&lt;/span&gt;
+&lt;span id=&quot;cb1-4&quot;&gt;&lt;a href=&quot;#cb1-4&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  f&lt;/span&gt;
+&lt;span id=&quot;cb1-5&quot;&gt;&lt;a href=&quot;#cb1-5&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id=&quot;cb1-6&quot;&gt;&lt;a href=&quot;#cb1-6&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; _ = &lt;span class=&quot;dt&quot;&gt;Callback&lt;/span&gt;.register &lt;span class=&quot;st&quot;&gt;&amp;quot;fib&amp;quot;&lt;/span&gt; fib&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;the closure needs to be registered with the c runtime&lt;a href=&quot;#fn1&quot;
+class=&quot;footnote-ref&quot; id=&quot;fnref1&quot; role=&quot;doc-noteref&quot;&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;there isn’t any overhead to making swift aware of the c code, but c
+needs to initialize the ocaml runtime and set a pointer to the ocaml
+closure&lt;a href=&quot;#fn2&quot; class=&quot;footnote-ref&quot; id=&quot;fnref2&quot;
+role=&quot;doc-noteref&quot;&gt;&lt;sup&gt;2&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot; id=&quot;cb2&quot;&gt;&lt;pre class=&quot;sourceCode c&quot;&gt;&lt;code class=&quot;sourceCode c&quot;&gt;&lt;span id=&quot;cb2-1&quot;&gt;&lt;a href=&quot;#cb2-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;dt&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;dt&quot;&gt;void&lt;/span&gt; init_ocaml&lt;span class=&quot;op&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dt&quot;&gt;void&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;)&lt;/span&gt; __attribute__&lt;span class=&quot;op&quot;&gt;((&lt;/span&gt;constructor&lt;span class=&quot;op&quot;&gt;));&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb2-2&quot;&gt;&lt;a href=&quot;#cb2-2&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;dt&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;dt&quot;&gt;void&lt;/span&gt; init_ocaml&lt;span class=&quot;op&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dt&quot;&gt;void&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;op&quot;&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb2-3&quot;&gt;&lt;a href=&quot;#cb2-3&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;dt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;op&quot;&gt;*&lt;/span&gt;argv&lt;span class=&quot;op&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;op&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;quot;main&amp;quot;&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;,&lt;/span&gt; NULL&lt;span class=&quot;op&quot;&gt;};&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb2-4&quot;&gt;&lt;a href=&quot;#cb2-4&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;    caml_startup&lt;span class=&quot;op&quot;&gt;(&lt;/span&gt;argv&lt;span class=&quot;op&quot;&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb2-5&quot;&gt;&lt;a href=&quot;#cb2-5&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;    fib_closure &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; caml_named_value&lt;span class=&quot;op&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;quot;fib&amp;quot;&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb2-6&quot;&gt;&lt;a href=&quot;#cb2-6&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;op&quot;&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb2-7&quot;&gt;&lt;a href=&quot;#cb2-7&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id=&quot;cb2-8&quot;&gt;&lt;a href=&quot;#cb2-8&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;dt&quot;&gt;int&lt;/span&gt; fib&lt;span class=&quot;op&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dt&quot;&gt;int&lt;/span&gt; n&lt;span class=&quot;op&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;op&quot;&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb2-9&quot;&gt;&lt;a href=&quot;#cb2-9&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;    printf&lt;span class=&quot;op&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;quot;c invoked by swift&lt;/span&gt;&lt;span class=&quot;sc&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb2-10&quot;&gt;&lt;a href=&quot;#cb2-10&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;cf&quot;&gt;return&lt;/span&gt; Int_val&lt;span class=&quot;op&quot;&gt;(&lt;/span&gt;caml_callback&lt;span class=&quot;op&quot;&gt;(*&lt;/span&gt;fib_closure&lt;span class=&quot;op&quot;&gt;,&lt;/span&gt; Val_int&lt;span class=&quot;op&quot;&gt;(&lt;/span&gt;n&lt;span class=&quot;op&quot;&gt;)));&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb2-11&quot;&gt;&lt;a href=&quot;#cb2-11&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;op&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;and finally the swift code that calls into c:&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot; id=&quot;cb3&quot;&gt;&lt;pre
+class=&quot;sourceCode swift&quot;&gt;&lt;code class=&quot;sourceCode swift&quot;&gt;&lt;span id=&quot;cb3-1&quot;&gt;&lt;a href=&quot;#cb3-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;at&quot;&gt;@_silgen_name&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;quot;fib&amp;quot;&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;fu&quot;&gt;fib&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;va&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;va&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dt&quot;&gt;Int32&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;)&lt;/span&gt; -&amp;gt; &lt;span class=&quot;fu&quot;&gt;Int32&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb3-2&quot;&gt;&lt;a href=&quot;#cb3-2&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id=&quot;cb3-3&quot;&gt;&lt;a href=&quot;#cb3-3&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;fu&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; Int32&lt;span class=&quot;op&quot;&gt;(&lt;/span&gt;CommandLine&lt;span class=&quot;op&quot;&gt;.&lt;/span&gt;arguments&lt;span class=&quot;op&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;])!&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb3-4&quot;&gt;&lt;a href=&quot;#cb3-4&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;va&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; fib&lt;span class=&quot;op&quot;&gt;(&lt;/span&gt;n&lt;span class=&quot;op&quot;&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb3-5&quot;&gt;&lt;a href=&quot;#cb3-5&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;print&lt;span class=&quot;op&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;quot;swift printing the fibonacci number for &lt;/span&gt;&lt;span class=&quot;er&quot;&gt;\(&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;n): &lt;/span&gt;&lt;span class=&quot;er&quot;&gt;\(&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;res)&amp;quot;&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;dune compiles the ocaml code into a static library, compiles the c
+object file, and links everything with swiftc:&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot; id=&quot;cb4&quot;&gt;&lt;pre
+class=&quot;sourceCode bash&quot;&gt;&lt;code class=&quot;sourceCode bash&quot;&gt;&lt;span id=&quot;cb4-1&quot;&gt;&lt;a href=&quot;#cb4-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ex&quot;&gt;executables&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb4-2&quot;&gt;&lt;a href=&quot;#cb4-2&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt; &lt;span class=&quot;kw&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ex&quot;&gt;names&lt;/span&gt; mod&lt;span class=&quot;kw&quot;&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb4-3&quot;&gt;&lt;a href=&quot;#cb4-3&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt; &lt;span class=&quot;kw&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ex&quot;&gt;modes&lt;/span&gt; object&lt;span class=&quot;kw&quot;&gt;))&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb4-4&quot;&gt;&lt;a href=&quot;#cb4-4&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id=&quot;cb4-5&quot;&gt;&lt;a href=&quot;#cb4-5&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ex&quot;&gt;rule&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb4-6&quot;&gt;&lt;a href=&quot;#cb4-6&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt; &lt;span class=&quot;kw&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ex&quot;&gt;targets&lt;/span&gt; libocaml.a&lt;span class=&quot;kw&quot;&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb4-7&quot;&gt;&lt;a href=&quot;#cb4-7&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt; &lt;span class=&quot;kw&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ex&quot;&gt;deps&lt;/span&gt; mod.exe.o&lt;span class=&quot;kw&quot;&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb4-8&quot;&gt;&lt;a href=&quot;#cb4-8&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt; &lt;span class=&quot;kw&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ex&quot;&gt;action&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb4-9&quot;&gt;&lt;a href=&quot;#cb4-9&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;kw&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ex&quot;&gt;run&lt;/span&gt; ar rcs %{targets} %{deps}&lt;span class=&quot;kw&quot;&gt;)))&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb4-10&quot;&gt;&lt;a href=&quot;#cb4-10&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id=&quot;cb4-11&quot;&gt;&lt;a href=&quot;#cb4-11&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ex&quot;&gt;rule&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb4-12&quot;&gt;&lt;a href=&quot;#cb4-12&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt; &lt;span class=&quot;kw&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ex&quot;&gt;targets&lt;/span&gt; main.o&lt;span class=&quot;kw&quot;&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb4-13&quot;&gt;&lt;a href=&quot;#cb4-13&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt; &lt;span class=&quot;kw&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ex&quot;&gt;deps&lt;/span&gt; main.c&lt;span class=&quot;kw&quot;&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb4-14&quot;&gt;&lt;a href=&quot;#cb4-14&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt; &lt;span class=&quot;kw&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ex&quot;&gt;action&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb4-15&quot;&gt;&lt;a href=&quot;#cb4-15&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;kw&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ex&quot;&gt;run&lt;/span&gt; clang &lt;span class=&quot;at&quot;&gt;-c&lt;/span&gt; &lt;span class=&quot;at&quot;&gt;-I&lt;/span&gt; %{ocaml_where} main.c &lt;span class=&quot;at&quot;&gt;-o&lt;/span&gt; main.o&lt;span class=&quot;kw&quot;&gt;)))&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb4-16&quot;&gt;&lt;a href=&quot;#cb4-16&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id=&quot;cb4-17&quot;&gt;&lt;a href=&quot;#cb4-17&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ex&quot;&gt;rule&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb4-18&quot;&gt;&lt;a href=&quot;#cb4-18&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt; &lt;span class=&quot;kw&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ex&quot;&gt;targets&lt;/span&gt; main&lt;span class=&quot;kw&quot;&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb4-19&quot;&gt;&lt;a href=&quot;#cb4-19&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt; &lt;span class=&quot;kw&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ex&quot;&gt;deps&lt;/span&gt; main.swift main.o&lt;span class=&quot;kw&quot;&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb4-20&quot;&gt;&lt;a href=&quot;#cb4-20&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt; &lt;span class=&quot;kw&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ex&quot;&gt;action&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb4-21&quot;&gt;&lt;a href=&quot;#cb4-21&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;kw&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ex&quot;&gt;run&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb4-22&quot;&gt;&lt;a href=&quot;#cb4-22&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;   &lt;span class=&quot;ex&quot;&gt;swiftc&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb4-23&quot;&gt;&lt;a href=&quot;#cb4-23&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;   &lt;span class=&quot;ex&quot;&gt;main.swift&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb4-24&quot;&gt;&lt;a href=&quot;#cb4-24&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;   &lt;span class=&quot;ex&quot;&gt;main.o&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb4-25&quot;&gt;&lt;a href=&quot;#cb4-25&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;   &lt;span class=&quot;ex&quot;&gt;-o&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb4-26&quot;&gt;&lt;a href=&quot;#cb4-26&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;   &lt;span class=&quot;ex&quot;&gt;main&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb4-27&quot;&gt;&lt;a href=&quot;#cb4-27&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;   &lt;span class=&quot;ex&quot;&gt;-L&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb4-28&quot;&gt;&lt;a href=&quot;#cb4-28&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;   &lt;span class=&quot;ex&quot;&gt;%{ocaml_where}&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb4-29&quot;&gt;&lt;a href=&quot;#cb4-29&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;   &lt;span class=&quot;ex&quot;&gt;-L&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb4-30&quot;&gt;&lt;a href=&quot;#cb4-30&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;   &lt;span class=&quot;bu&quot;&gt;.&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb4-31&quot;&gt;&lt;a href=&quot;#cb4-31&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;   &lt;span class=&quot;ex&quot;&gt;-locaml&lt;/span&gt;&lt;/span&gt;
+&lt;span id=&quot;cb4-32&quot;&gt;&lt;a href=&quot;#cb4-32&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;   &lt;span class=&quot;ex&quot;&gt;-lcamlrun&lt;/span&gt;&lt;span class=&quot;kw&quot;&gt;)))&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;and voila! time to get schwifty&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot; id=&quot;cb5&quot;&gt;&lt;pre
+class=&quot;sourceCode bash&quot;&gt;&lt;code class=&quot;sourceCode bash&quot;&gt;&lt;span id=&quot;cb5-1&quot;&gt;&lt;a href=&quot;#cb5-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;$&lt;/span&gt; dune build&lt;/span&gt;
+&lt;span id=&quot;cb5-2&quot;&gt;&lt;a href=&quot;#cb5-2&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;$&lt;/span&gt; dune exe ./main 10&lt;/span&gt;
+&lt;span id=&quot;cb5-3&quot;&gt;&lt;a href=&quot;#cb5-3&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;c&lt;/span&gt; invoked by swift               &lt;/span&gt;
+&lt;span id=&quot;cb5-4&quot;&gt;&lt;a href=&quot;#cb5-4&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;ocaml&lt;/span&gt; invoked by c&lt;/span&gt;
+&lt;span id=&quot;cb5-5&quot;&gt;&lt;a href=&quot;#cb5-5&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;swift&lt;/span&gt; printing the fibonacci number for 10: 89&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;the full code is available in the &lt;a
+href=&quot;https://github.com/tkoukpari/calling-ocaml-from-c-from-swift&quot;&gt;calling-ocaml-from-c-from-swift&lt;/a&gt;
+repository&lt;/p&gt;
+&lt;section id=&quot;footnotes&quot; class=&quot;footnotes footnotes-end-of-document&quot;
+role=&quot;doc-endnotes&quot;&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id=&quot;fn1&quot;&gt;&lt;p&gt;&lt;a
+href=&quot;https://ocaml.org/manual/5.3/api/Callback.html&quot;&gt;caml.org/manual/5.3/api/Callback.html&lt;/a&gt;&lt;a
+href=&quot;#fnref1&quot; class=&quot;footnote-back&quot; role=&quot;doc-backlink&quot;&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id=&quot;fn2&quot;&gt;&lt;p&gt;&lt;a
+href=&quot;https://ocaml.org/manual/5.3/intfc.html&quot;&gt;ocaml.org/manual/5.3/intfc.html&lt;/a&gt;&lt;a
+href=&quot;#fnref2&quot; class=&quot;footnote-back&quot; role=&quot;doc-backlink&quot;&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/section&gt;
+    </content>
+    <link href="https://tkoukpari.github.io/blog/2025-06-06-calling-ocaml-from-c-from-swift" rel="alternate"/>
+  </entry>
+  <entry>
+    <id>tag:tkoukpari.github.io,2025-06-21:420314da-bb77-45e0-b280-707cd69c92b8</id>
+    <title type="text">politicking</title>
+    <updated>2025-06-21T00:00:00Z</updated>
+    <published>2025-06-21T00:00:00Z</published>
+    <content type="html">
+      &lt;div dir=&quot;rtl&quot;&gt;
+&lt;p&gt;واکنش فوری من به این درگیری:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;اسرائیل یک تهدید بنیادین برای ایران است&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;ایران باید بی‌طرفی خود را اعلام کند. چرا باید کسی تمام ایدئولوژی‌اش
+را بر مخالفت با قدرتمندترین نیروی نظامی تاریخ بشر ــ و دولت نیابتی‌اش در
+منطقه ــ بنا کند؟&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;اگر ایران در لحظه‌ی نخست حمله، برای دستیابی به سلاح هسته‌ای اقدام
+نکند، فاجعه‌بار خواهد بود. لاریجانی هم &lt;a
+href=&quot;https://www.memri.org/tv/khamenei-advisor-ali-larijani-america-attack-iran-push-nuclear-weapons&quot;&gt;چند
+ماه پیش&lt;/a&gt; همین را گفت&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;بخشی از یک شعر دیلن توماس:&lt;/p&gt;
+&lt;p&gt;به شب خاموش و ارام، مرو &lt;br&gt; پیری باید بسوزد و فریاد زند، در پایان
+روز &lt;br&gt; فریاد. فریاد بر مرگ فروغ‌اور &lt;br&gt;&lt;/p&gt;
+&lt;p&gt;دانایان می‌دانند تاریکی پایان راه است، &lt;br&gt; اما، چون کلام‌شان نتابید به
+شرری در دل شب &lt;br&gt; انها به شب ارام و خاموش نمی روند &lt;br&gt;&lt;/p&gt;
+&lt;p&gt;…&lt;/p&gt;
+&lt;p&gt;و تو، پدرم، ان‌ بالا بر قله‌ی اندوه، &lt;br&gt; اکنون مرا با اشک‌های پرشورت،
+نفرین کن یا برکت ده، التماست می‌کنم &lt;br&gt; به شب خاموش و ارام، مرو &lt;br&gt;
+فریاد. فریاد بر مرگ فروغ‌اور &lt;br&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;Do not go gentle into that good night, &lt;br&gt; Old age should burn and
+rave at close of day; &lt;br&gt; Rage, rage against the dying of the light.
+&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;Though wise men at their end know dark is right, &lt;br&gt; Because their
+words had forked no lightning they &lt;br&gt; Do not go gentle into that good
+night. &lt;br&gt;&lt;/p&gt;
+&lt;p&gt;…&lt;/p&gt;
+&lt;p&gt;And you, my father, there on the sad height, &lt;br&gt; Curse, bless, me
+now with your fierce tears, I pray. &lt;br&gt; Do not go gentle into that good
+night. &lt;br&gt; Rage, rage against the dying of the light. &lt;br&gt;&lt;/p&gt;
+    </content>
+    <link href="https://tkoukpari.github.io/blog/2025-06-21-politicking" rel="alternate"/>
+  </entry>
+  <entry>
+    <id>tag:tkoukpari.github.io,2025-06-22:a1ce76d2-2e52-46f7-a6da-9d0a6a1bae0a</id>
+    <title type="text">fool me twice</title>
+    <updated>2025-06-22T00:00:00Z</updated>
+    <published>2025-06-22T00:00:00Z</published>
+    <content type="html">
+      &lt;div dir=&quot;rtl&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=Hl7FKfl3O2Y&quot;&gt;چی میگفت؟ یکبار
+فریبم بدی، شرمت باد. دوباره… دیگه نمی تونی دوباره فریبم بدی&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+    </content>
+    <link href="https://tkoukpari.github.io/blog/2025-06-22-fool-me-twice" rel="alternate"/>
+  </entry>
+  <entry>
+    <id>tag:tkoukpari.github.io,2025-07-19:677dabd5-8e1e-4b0a-b6bd-99821e73ffb7</id>
+    <title type="text">intro</title>
+    <updated>2025-07-19T00:00:00Z</updated>
+    <published>2025-07-19T00:00:00Z</published>
+    <content type="html">
+      &lt;p&gt;I’m going to write a series on ocaml rpc infrastructure: how to set
+up an ecosystem of servers, have them talk to each other via rpc, and
+have them interact with the outside world.&lt;/p&gt;
+&lt;p&gt;I’ll assume knowledge of the code in &lt;a
+href=&quot;https://github.com/tkoukpari/rpcs&quot;&gt;rpcs&lt;/a&gt;. there are three
+relevant libraries under the server-client-rpc directory. the libraries
+are split across server, client, and protocol to avoid a build
+dependency between server and client.&lt;/p&gt;
+&lt;p&gt;the rpc is implemented with &lt;a
+href=&quot;https://github.com/janestreet/babel&quot;&gt;babel&lt;/a&gt;, but is otherwise
+easy to follow&lt;/p&gt;
+    </content>
+    <link href="https://tkoukpari.github.io/blog/2025-07-19-rpcs" rel="alternate"/>
+  </entry>
+  <entry>
+    <id>tag:tkoukpari.github.io,2025-07-26:67ce1e84-5d8b-421c-ae2b-9eea16f41f75</id>
+    <title type="text">hosting servers on linode</title>
+    <updated>2025-07-26T00:00:00Z</updated>
+    <published>2025-07-26T00:00:00Z</published>
+    <content type="html">
+      &lt;p&gt;first in the series is getting two different machines to communicate
+with one-another on the same private network&lt;/p&gt;
+&lt;p&gt;we’re going to use linode (a.k.a. akamai) because I couldn’t figure
+out how to open an account (or pay for an account) on a few other cloud
+providers&lt;/p&gt;
+&lt;p&gt;you can consider this an advertisement for linode - it was actually
+easy to use&lt;/p&gt;
+&lt;h3 id=&quot;setup&quot;&gt;setup&lt;/h3&gt;
+&lt;p&gt;once you have a linode account, set up a VPC and two linodes on the
+same VPC subnet&lt;/p&gt;
+&lt;p&gt;ssh into each machine using &lt;code&gt;ssh root@IP_ADDRESS&lt;/code&gt; and run
+the following to download dune:&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot; id=&quot;cb1&quot;&gt;&lt;pre
+class=&quot;sourceCode bash&quot;&gt;&lt;code class=&quot;sourceCode bash&quot;&gt;&lt;span id=&quot;cb1-1&quot;&gt;&lt;a href=&quot;#cb1-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;fu&quot;&gt;sudo&lt;/span&gt; apt update&lt;/span&gt;
+&lt;span id=&quot;cb1-2&quot;&gt;&lt;a href=&quot;#cb1-2&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;apt&lt;/span&gt; install ocaml-dune&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;download and init opam:&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot; id=&quot;cb2&quot;&gt;&lt;pre
+class=&quot;sourceCode bash&quot;&gt;&lt;code class=&quot;sourceCode bash&quot;&gt;&lt;span id=&quot;cb2-1&quot;&gt;&lt;a href=&quot;#cb2-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;fu&quot;&gt;sudo&lt;/span&gt; apt-get install opam&lt;/span&gt;
+&lt;span id=&quot;cb2-2&quot;&gt;&lt;a href=&quot;#cb2-2&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;opam&lt;/span&gt; init&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;clone the &lt;a href=&quot;https://github.com/tkoukpari/rpcs&quot;&gt;rpcs&lt;/a&gt;
+repository with &lt;code&gt;git clone ... rpcs&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;you can probably do all the above on a single machine, and then clone
+the machine, instead of doing everything twice&lt;/p&gt;
+&lt;h3 id=&quot;running-code&quot;&gt;running code&lt;/h3&gt;
+&lt;p&gt;on the first linode, run the rpc-server with:&lt;a href=&quot;#fn1&quot;
+class=&quot;footnote-ref&quot; id=&quot;fnref1&quot; role=&quot;doc-noteref&quot;&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot; id=&quot;cb3&quot;&gt;&lt;pre
+class=&quot;sourceCode bash&quot;&gt;&lt;code class=&quot;sourceCode bash&quot;&gt;&lt;span id=&quot;cb3-1&quot;&gt;&lt;a href=&quot;#cb3-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;bu&quot;&gt;cd&lt;/span&gt; rpcs&lt;/span&gt;
+&lt;span id=&quot;cb3-2&quot;&gt;&lt;a href=&quot;#cb3-2&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;dune&lt;/span&gt; build&lt;/span&gt;
+&lt;span id=&quot;cb3-3&quot;&gt;&lt;a href=&quot;#cb3-3&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;./_build/default/server-client-rpc/bin/main.exe&lt;/span&gt; server 5&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;dune build&lt;/code&gt; will run into
+&lt;code&gt;Library &quot;X&quot; not found&lt;/code&gt; for some Xs… they should be installed
+with &lt;code&gt;opam install&lt;/code&gt;. make sure &lt;code&gt;async&lt;/code&gt; is on
+v&amp;gt;0.17.0.&lt;/p&gt;
+&lt;p&gt;on the second linode, query the server with&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot; id=&quot;cb4&quot;&gt;&lt;pre
+class=&quot;sourceCode bash&quot;&gt;&lt;code class=&quot;sourceCode bash&quot;&gt;&lt;span id=&quot;cb4-1&quot;&gt;&lt;a href=&quot;#cb4-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;bu&quot;&gt;cd&lt;/span&gt; rpcs&lt;/span&gt;
+&lt;span id=&quot;cb4-2&quot;&gt;&lt;a href=&quot;#cb4-2&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;dune&lt;/span&gt; build&lt;/span&gt;
+&lt;span id=&quot;cb4-3&quot;&gt;&lt;a href=&quot;#cb4-3&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;ex&quot;&gt;./_build/default/server-client-rpc/bin/main.exe&lt;/span&gt; client IP_ADDRESS_OF_LINODE_1 42&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;note we’ve changed the client implementation such that the RPC client
+is created with an &lt;code&gt;Inet&lt;/code&gt; address instead of a host:&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot; id=&quot;cb5&quot;&gt;&lt;pre
+class=&quot;sourceCode ocaml&quot;&gt;&lt;code class=&quot;sourceCode ocaml&quot;&gt;&lt;span id=&quot;cb5-1&quot;&gt;&lt;a href=&quot;#cb5-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt;%bind client =&lt;/span&gt;
+&lt;span id=&quot;cb5-2&quot;&gt;&lt;a href=&quot;#cb5-2&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;  Rpc.Connection.client&lt;/span&gt;
+&lt;span id=&quot;cb5-3&quot;&gt;&lt;a href=&quot;#cb5-3&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;    (Tcp.Where_to_connect.of_inet_address&lt;/span&gt;
+&lt;span id=&quot;cb5-4&quot;&gt;&lt;a href=&quot;#cb5-4&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;      (`Inet (inet_addr, &lt;span class=&quot;dv&quot;&gt;8080&lt;/span&gt;)))&lt;/span&gt;
+&lt;span id=&quot;cb5-5&quot;&gt;&lt;a href=&quot;#cb5-5&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;...&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id=&quot;service-discovery-and-other-infrastructure&quot;&gt;service discovery
+and other infrastructure&lt;/h3&gt;
+&lt;p&gt;some things that would be useful that I didn’t do:&lt;/p&gt;
+&lt;ol type=&quot;1&quot;&gt;
+&lt;li&gt;&lt;p&gt;have your github repository sync automatically on your linodes so
+you don’t need to &lt;code&gt;git pull&lt;/code&gt; every time you make a
+change&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;set up service discovery so that you don’t need to manually query
+with an IP address. this might be of the form “have a perma-server with
+a perma-IP address that other servers can connect to via pipe to
+subscribe to or advertise IP addresses and ports”&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;section id=&quot;footnotes&quot; class=&quot;footnotes footnotes-end-of-document&quot;
+role=&quot;doc-endnotes&quot;&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id=&quot;fn1&quot;&gt;&lt;p&gt;if you want to run the server in the background, first
+run &lt;code&gt;touch /tmp/ocaml-rpc-logs&lt;/code&gt; and then append
+&lt;code&gt;&amp;gt; /tmp/ocaml-rpc-logs 2&amp;gt;&amp;amp;1 &amp;amp; pid=$!&lt;/code&gt; where you
+start the server. you can kill the server with &lt;code&gt;kill $pid&lt;/code&gt;&lt;a
+href=&quot;#fnref1&quot; class=&quot;footnote-back&quot; role=&quot;doc-backlink&quot;&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/section&gt;
+    </content>
+    <link href="https://tkoukpari.github.io/blog/2025-07-26-hosting-servers-on-linode" rel="alternate"/>
+  </entry>
+  <entry>
+    <id>tag:tkoukpari.github.io,2025-07-28:27014239-95b6-4d71-a556-e93b321404d3</id>
+    <title type="text">non-recursive recursive values</title>
+    <updated>2025-07-28T00:00:00Z</updated>
+    <published>2025-07-28T00:00:00Z</published>
+    <content type="html">
+      &lt;p&gt;today, one of my work colleagues showed me how to recurse in ocaml
+without recursing.&lt;a href=&quot;#fn1&quot; class=&quot;footnote-ref&quot; id=&quot;fnref1&quot;
+role=&quot;doc-noteref&quot;&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt; the usual disclaimer about basic
+knowledge of ocaml types applies.&lt;/p&gt;
+&lt;p&gt;consider the type:&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot; id=&quot;cb1&quot;&gt;&lt;pre
+class=&quot;sourceCode ocaml&quot;&gt;&lt;code class=&quot;sourceCode ocaml&quot;&gt;&lt;span id=&quot;cb1-1&quot;&gt;&lt;a href=&quot;#cb1-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;type&lt;/span&gt; &amp;#39;a t = { f : &amp;#39;a t -&amp;gt; &amp;#39;a }&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;you can create an &lt;code&gt;f&lt;/code&gt; by applying a &lt;code&gt;t.f&lt;/code&gt; to
+itself:&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot; id=&quot;cb2&quot;&gt;&lt;pre
+class=&quot;sourceCode ocaml&quot;&gt;&lt;code class=&quot;sourceCode ocaml&quot;&gt;&lt;span id=&quot;cb2-1&quot;&gt;&lt;a href=&quot;#cb2-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; extract ({ f } &lt;span class=&quot;kw&quot;&gt;as&lt;/span&gt; t) = f t&lt;/span&gt;
+&lt;span id=&quot;cb2-2&quot;&gt;&lt;a href=&quot;#cb2-2&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id=&quot;cb2-3&quot;&gt;&lt;a href=&quot;#cb2-3&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;val&lt;/span&gt; extract : &amp;#39;a t -&amp;gt; &amp;#39;a&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;now just wrap &lt;code&gt;extract&lt;/code&gt; back into a &lt;code&gt;t&lt;/code&gt; and
+apply it to itself:&lt;/p&gt;
+&lt;div class=&quot;sourceCode&quot; id=&quot;cb3&quot;&gt;&lt;pre
+class=&quot;sourceCode ocaml&quot;&gt;&lt;code class=&quot;sourceCode ocaml&quot;&gt;&lt;span id=&quot;cb3-1&quot;&gt;&lt;a href=&quot;#cb3-1&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;let&lt;/span&gt; recurse_forever = extract { f = extract }&lt;/span&gt;
+&lt;span id=&quot;cb3-2&quot;&gt;&lt;a href=&quot;#cb3-2&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span id=&quot;cb3-3&quot;&gt;&lt;a href=&quot;#cb3-3&quot; aria-hidden=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;kw&quot;&gt;val&lt;/span&gt; recurse_forever : &amp;#39;a &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;and you’ve created a diverging program without &lt;code&gt;rec&lt;/code&gt;&lt;/p&gt;
+&lt;section id=&quot;footnotes&quot; class=&quot;footnotes footnotes-end-of-document&quot;
+role=&quot;doc-endnotes&quot;&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id=&quot;fn1&quot;&gt;&lt;p&gt;M if you stumble upon this, claim credit&lt;a
+href=&quot;#fnref1&quot; class=&quot;footnote-back&quot; role=&quot;doc-backlink&quot;&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/section&gt;
+    </content>
+    <link href="https://tkoukpari.github.io/blog/2025-07-28-non-recursive-recursive-values" rel="alternate"/>
+  </entry>
+  <entry>
+    <id>tag:tkoukpari.github.io,2025-08-09:878f994f-2280-4300-94c9-b2383996cf57</id>
+    <title type="text">open source</title>
+    <updated>2025-08-09T00:00:00Z</updated>
+    <published>2025-08-09T00:00:00Z</published>
+    <content type="html">
+      &lt;p&gt;some of my work at jane street was recently open sourced:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a
+href=&quot;https://github.com/janestreet/big_percent&quot;&gt;big_percent&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a
+href=&quot;https://github.com/janestreet/insertion_ordered_map&quot;&gt;insertion_ordered_map&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a
+href=&quot;https://github.com/janestreet/nonempty_interval_lib&quot;&gt;nonempty_interval_lib&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a
+href=&quot;https://github.com/janestreet/ppx_anonymous_record&quot;&gt;ppx_anonymous_record&lt;/a&gt;&lt;a
+href=&quot;#fn1&quot; class=&quot;footnote-ref&quot; id=&quot;fnref1&quot;
+role=&quot;doc-noteref&quot;&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/janestreet/ppx_array&quot;&gt;ppx_array&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;there have been a lot of complaints about AI companies stealing open
+source IP. I think it’s kind of neat - it gives my work some amount of
+representation&lt;/p&gt;
+&lt;section id=&quot;footnotes&quot; class=&quot;footnotes footnotes-end-of-document&quot;
+role=&quot;doc-endnotes&quot;&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id=&quot;fn1&quot;&gt;&lt;p&gt;this inspired the &lt;a
+href=&quot;https://tyconmismatch.com/papers/ml2024_labeled_tuples.pdf&quot;&gt;labeled
+tuples&lt;/a&gt; language feature&lt;a href=&quot;#fnref1&quot; class=&quot;footnote-back&quot;
+role=&quot;doc-backlink&quot;&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/section&gt;
+    </content>
+    <link href="https://tkoukpari.github.io/blog/2025-08-09-open-source" rel="alternate"/>
+  </entry>
+</feed>

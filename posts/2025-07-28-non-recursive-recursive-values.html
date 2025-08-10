@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<!-- taken from https://github.com/jgm/pandoc-templates/blob/05d510b4dc5af87cbf25d92fa8318f44e155b919/default.html5 -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+      <meta name="dcterms.date" content="2025-07-28" />
+      <title>non-recursive recursive values</title>
+  <link rel="stylesheet" href="../static/reset.css" />
+  <link rel="stylesheet" href="../static/custom.css" />
+  <link rel="stylesheet" href="../static/highlighting.css" />
+      <style>
+    code {
+      font-size: 0.9em
+    }
+
+    .sourceCode {
+      font-size: 0.93em
+    }
+
+    ul {
+      padding-left: 1em;
+      padding-right: 1em;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="navigation-bar">
+    <div id="navigation-content">
+      <a href="../index.html">index</a>
+    </div>
+  </div>
+  <article>
+            <header id="title-block-header">
+      <h1 class="title">non-recursive recursive values</h1>
+            <p class="date">2025-07-28</p>
+                  <p class="category">category: <a href="../category/tech.html">tech</a></p>
+                  <p class="tags">
+        tags: <a href="../tag/ocaml.html">ocaml</a> 
+      </p>
+          </header>
+            <p>today, one of my work colleagues showed me how to recurse
+            in ocaml without recursing.<a href="#fn1"
+            class="footnote-ref" id="fnref1"
+            role="doc-noteref"><sup>1</sup></a> the usual disclaimer
+            about basic knowledge of ocaml types applies.</p>
+            <p>consider the type:</p>
+            <div class="sourceCode" id="cb1"><pre
+            class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> &#39;a t = { f : &#39;a t -&gt; &#39;a }</span></code></pre></div>
+            <p>you can create an <code>f</code> by applying a
+            <code>t.f</code> to itself:</p>
+            <div class="sourceCode" id="cb2"><pre
+            class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> extract ({ f } <span class="kw">as</span> t) = f t</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> extract : &#39;a t -&gt; &#39;a</span></code></pre></div>
+            <p>now just wrap <code>extract</code> back into a
+            <code>t</code> and apply it to itself:</p>
+            <div class="sourceCode" id="cb3"><pre
+            class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> recurse_forever = extract { f = extract }</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> recurse_forever : &#39;a </span></code></pre></div>
+            <p>and you’ve created a diverging program without
+            <code>rec</code></p>
+            <section id="footnotes"
+            class="footnotes footnotes-end-of-document"
+            role="doc-endnotes">
+            <hr />
+            <ol>
+            <li id="fn1"><p>M if you stumble upon this, claim credit<a
+            href="#fnref1" class="footnote-back"
+            role="doc-backlink">↩︎</a></p></li>
+            </ol>
+            </section>
+        <script src="https://utteranc.es/client.js" repo="tkoukpari/blog" issue-term="pathname" theme="github-light"
+      crossorigin="anonymous" async></script>
+    <hr>
+    <small>
+      <a href="../index.html">index</a> |
+      <a href="../atom.xml">atom</a>/<a href="../rss.xml">rss</a> |
+      generated off rev <a href="https://github.com/tkoukpari/blog-src/commit/dbfb27c5">dbfb27c5</a>
+    </small>
+  </article>
+</body>
+
+</html>

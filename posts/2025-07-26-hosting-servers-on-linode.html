@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<!-- taken from https://github.com/jgm/pandoc-templates/blob/05d510b4dc5af87cbf25d92fa8318f44e155b919/default.html5 -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+      <meta name="dcterms.date" content="2025-07-26" />
+      <title>hosting servers on linode</title>
+  <link rel="stylesheet" href="../static/reset.css" />
+  <link rel="stylesheet" href="../static/custom.css" />
+  <link rel="stylesheet" href="../static/highlighting.css" />
+      <style>
+    code {
+      font-size: 0.9em
+    }
+
+    .sourceCode {
+      font-size: 0.93em
+    }
+
+    ul {
+      padding-left: 1em;
+      padding-right: 1em;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="navigation-bar">
+    <div id="navigation-content">
+      <a href="../index.html">index</a>
+    </div>
+  </div>
+  <article>
+            <header id="title-block-header">
+      <h1 class="title">hosting servers on linode</h1>
+            <p class="date">2025-07-26</p>
+                  <p class="category">category: <a href="../category/tech.html">tech</a></p>
+                  <p class="tags">
+        tags: <a href="../tag/ocaml.html">ocaml</a> 
+      </p>
+          </header>
+            <p>first in the series is getting two different machines to
+            communicate with one-another on the same private network</p>
+            <p>we’re going to use linode (a.k.a. akamai) because I
+            couldn’t figure out how to open an account (or pay for an
+            account) on a few other cloud providers</p>
+            <p>you can consider this an advertisement for linode - it
+            was actually easy to use</p>
+            <h3 id="setup">setup</h3>
+            <p>once you have a linode account, set up a VPC and two
+            linodes on the same VPC subnet</p>
+            <p>ssh into each machine using
+            <code>ssh root@IP_ADDRESS</code> and run the following to
+            download dune:</p>
+            <div class="sourceCode" id="cb1"><pre
+            class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt update</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">apt</span> install ocaml-dune</span></code></pre></div>
+            <p>download and init opam:</p>
+            <div class="sourceCode" id="cb2"><pre
+            class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get install opam</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">opam</span> init</span></code></pre></div>
+            <p>clone the <a
+            href="https://github.com/tkoukpari/rpcs">rpcs</a> repository
+            with <code>git clone ... rpcs</code></p>
+            <p>you can probably do all the above on a single machine,
+            and then clone the machine, instead of doing everything
+            twice</p>
+            <h3 id="running-code">running code</h3>
+            <p>on the first linode, run the rpc-server with:<a
+            href="#fn1" class="footnote-ref" id="fnref1"
+            role="doc-noteref"><sup>1</sup></a></p>
+            <div class="sourceCode" id="cb3"><pre
+            class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> rpcs</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">dune</span> build</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">./_build/default/server-client-rpc/bin/main.exe</span> server 5</span></code></pre></div>
+            <p><code>dune build</code> will run into
+            <code>Library "X" not found</code> for some Xs… they should
+            be installed with <code>opam install</code>. make sure
+            <code>async</code> is on v&gt;0.17.0.</p>
+            <p>on the second linode, query the server with</p>
+            <div class="sourceCode" id="cb4"><pre
+            class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> rpcs</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">dune</span> build</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">./_build/default/server-client-rpc/bin/main.exe</span> client IP_ADDRESS_OF_LINODE_1 42</span></code></pre></div>
+            <p>note we’ve changed the client implementation such that
+            the RPC client is created with an <code>Inet</code> address
+            instead of a host:</p>
+            <div class="sourceCode" id="cb5"><pre
+            class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span>%bind client =</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  Rpc.Connection.client</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    (Tcp.Where_to_connect.of_inet_address</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>      (`Inet (inet_addr, <span class="dv">8080</span>)))</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>...</span></code></pre></div>
+            <h3 id="service-discovery-and-other-infrastructure">service
+            discovery and other infrastructure</h3>
+            <p>some things that would be useful that I didn’t do:</p>
+            <ol type="1">
+            <li><p>have your github repository sync automatically on
+            your linodes so you don’t need to <code>git pull</code>
+            every time you make a change</p></li>
+            <li><p>set up service discovery so that you don’t need to
+            manually query with an IP address. this might be of the form
+            “have a perma-server with a perma-IP address that other
+            servers can connect to via pipe to subscribe to or advertise
+            IP addresses and ports”</p></li>
+            </ol>
+            <section id="footnotes"
+            class="footnotes footnotes-end-of-document"
+            role="doc-endnotes">
+            <hr />
+            <ol>
+            <li id="fn1"><p>if you want to run the server in the
+            background, first run <code>touch /tmp/ocaml-rpc-logs</code>
+            and then append
+            <code>&gt; /tmp/ocaml-rpc-logs 2&gt;&amp;1 &amp; pid=$!</code>
+            where you start the server. you can kill the server with
+            <code>kill $pid</code><a href="#fnref1"
+            class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+            </ol>
+            </section>
+        <script src="https://utteranc.es/client.js" repo="tkoukpari/blog" issue-term="pathname" theme="github-light"
+      crossorigin="anonymous" async></script>
+    <hr>
+    <small>
+      <a href="../index.html">index</a> |
+      <a href="../atom.xml">atom</a>/<a href="../rss.xml">rss</a> |
+      generated off rev <a href="https://github.com/tkoukpari/blog-src/commit/dbfb27c5">dbfb27c5</a>
+    </small>
+  </article>
+</body>
+
+</html>
