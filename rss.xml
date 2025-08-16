@@ -12,7 +12,7 @@
       <link>https://tkoukpari.github.io/blog/2025-05-31-blog-1</link>
       <description>
         <![CDATA[<p>welcome to my technical blog. I’ll write about tech (mostly ocaml),
-math, physics, and other topics.</p>
+math and other topics.</p>
 <p>I also have a farsi-language <a
 href="https://tiamkoukpari.com">personal website</a> with my art</p>]]>
       </description>
@@ -370,7 +370,7 @@ role="doc-noteref"><sup>1</sup></a></li>
 <li><a href="https://github.com/janestreet/ppx_array">ppx_array</a></li>
 </ul>
 <p>there have been a lot of complaints about AI companies stealing open
-source IP. I think it’s kind of neat - it gives my work some amount of
+source IP. I think it’s neat - it gives my work some amount of
 representation</p>
 <section id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">

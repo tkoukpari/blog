@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>https://tkoukpari.github.io/blog</id>
   <title type="text">tkoukpari&apos;s blog</title>
-  <generator uri="https://github.com/tkoukpari/blog-src" version="dbfb27c5">blog-src</generator>
+  <generator uri="https://github.com/tkoukpari/blog-src" version="576cd0f1">blog-src</generator>
   <updated>2025-08-09T00:00:00Z</updated>
   <author>
     <name>tkoukpari</name>
@@ -15,7 +15,7 @@
     <published>2025-05-31T00:00:00Z</published>
     <content type="html">
       &lt;p&gt;welcome to my technical blog. I’ll write about tech (mostly ocaml),
-math, physics, and other topics.&lt;/p&gt;
+math and other topics.&lt;/p&gt;
 &lt;p&gt;I also have a farsi-language &lt;a
 href=&quot;https://tiamkoukpari.com&quot;&gt;personal website&lt;/a&gt; with my art&lt;/p&gt;
     </content>
@@ -389,7 +389,7 @@ role=&quot;doc-noteref&quot;&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;https://github.com/janestreet/ppx_array&quot;&gt;ppx_array&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;there have been a lot of complaints about AI companies stealing open
-source IP. I think it’s kind of neat - it gives my work some amount of
+source IP. I think it’s neat - it gives my work some amount of
 representation&lt;/p&gt;
 &lt;section id=&quot;footnotes&quot; class=&quot;footnotes footnotes-end-of-document&quot;
 role=&quot;doc-endnotes&quot;&gt;
