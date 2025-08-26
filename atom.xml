@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>https://tkoukpari.github.io/blog</id>
   <title type="text">tkoukpari&apos;s blog</title>
-  <generator uri="https://github.com/tkoukpari/blog-src" version="f58dfffb">blog-src</generator>
+  <generator uri="https://github.com/tkoukpari/blog-src" version="435f1407">blog-src</generator>
   <updated>2025-08-26T00:00:00Z</updated>
   <author>
     <name>tkoukpari</name>
@@ -448,7 +448,7 @@ firewall, which you can do under the networking tab on linode’s main
 page. the default should be to drop all inbound and outbound requests.
 otherwise you should have two inbound rules:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;TCP protocol on port 22, accepting all IPv6 sources&lt;/li&gt;
+&lt;li&gt;TCP protocol on port 22, accepting all IPv4 sources&lt;/li&gt;
 &lt;li&gt;TCP protocol on port 8080 (or wherever you are hosting your rpc),
 accepting all VPC IPv4 sources (e.g. 10.0.0.1/32)&lt;/li&gt;
 &lt;/ul&gt;

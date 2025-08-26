@@ -425,7 +425,7 @@ firewall, which you can do under the networking tab on linode’s main
 page. the default should be to drop all inbound and outbound requests.
 otherwise you should have two inbound rules:</p>
 <ul>
-<li>TCP protocol on port 22, accepting all IPv6 sources</li>
+<li>TCP protocol on port 22, accepting all IPv4 sources</li>
 <li>TCP protocol on port 8080 (or wherever you are hosting your rpc),
 accepting all VPC IPv4 sources (e.g. 10.0.0.1/32)</li>
 </ul>
