@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>https://tkoukpari.github.io/blog</id>
   <title type="text">tkoukpari&apos;s blog</title>
-  <generator uri="https://github.com/tkoukpari/blog-src" version="52734c38">blog-src</generator>
+  <generator uri="https://github.com/tkoukpari/blog-src" version="fff05e1f">blog-src</generator>
   <updated>2025-08-26T00:00:00Z</updated>
   <author>
     <name>tkoukpari</name>
@@ -436,7 +436,7 @@ they are Iraq, Ukraine, etc.?&lt;/p&gt;
   </entry>
   <entry>
     <id>tag:tkoukpari.github.io,2025-08-26:f8328097-be68-4210-91a5-dce10f6b5214</id>
-    <title type="text">firewalls</title>
+    <title type="text">firewall</title>
     <updated>2025-08-26T00:00:00Z</updated>
     <published>2025-08-26T00:00:00Z</published>
     <content type="html">
@@ -455,6 +455,6 @@ accepting all VPC IPv4 sources (e.g. 10.0.0.1/32… 10.0.0.n/32)&lt;/li&gt;
 allows intra-VPC connections. all rpc requests from the outside world
 are dropped&lt;/p&gt;
     </content>
-    <link href="https://tkoukpari.github.io/blog/2025-08-26-firewalls" rel="alternate"/>
+    <link href="https://tkoukpari.github.io/blog/2025-08-26-firewall" rel="alternate"/>
   </entry>
 </feed>
