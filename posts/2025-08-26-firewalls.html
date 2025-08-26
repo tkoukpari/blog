@@ -6,8 +6,8 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-      <meta name="dcterms.date" content="2025-06-22" />
-      <title>fool me twice</title>
+      <meta name="dcterms.date" content="2025-08-26" />
+      <title>firewalls</title>
   <link rel="stylesheet" href="../static/reset.css" />
   <link rel="stylesheet" href="../static/custom.css" />
   <link rel="stylesheet" href="../static/highlighting.css" />
@@ -35,15 +35,31 @@
   </div>
   <article>
             <header id="title-block-header">
-      <h1 class="title">fool me twice</h1>
-            <p class="date">2025-06-22</p>
-                  <p class="category">category: <a href="../category/politics.html">politics</a></p>
-                </header>
-            <div dir="rtl">
-            <p><a href="https://www.youtube.com/watch?v=Hl7FKfl3O2Y">چی
-            میگفت؟ یکبار فریبم بدی، شرمت باد. دوباره… دیگه نمی تونی
-            دوباره فریبم بدی</a></p>
-            </div>
+      <h1 class="title">firewalls</h1>
+            <p class="date">2025-08-26</p>
+                  <p class="category">category: <a href="../category/tech.html">tech</a></p>
+                  <p class="tags">
+        tags: <a href="../tag/ocaml.html">ocaml</a> 
+      </p>
+          </header>
+            <p>I left a comment on the last post in this series about
+            how <em>the same private network</em> was an
+            overestimate.</p>
+            <p>to make the servers in the vpc actually private you need
+            to setup a firewall (which you can do under the networking
+            tab)</p>
+            <p>the default should be to drop all requests. otherwise you
+            should have two inbound rules:</p>
+            <ul>
+            <li>TCP protocol on port 22, accepting all IPv4 and IPv6
+            sources</li>
+            <li>TCP protocol on port 8080 (or wherever you are hosting
+            your rpc), accepting all VPC IPv4 sources (e.g. 10.0.0.1/32…
+            10.0.0.n/32)</li>
+            </ul>
+            <p>the first rule allows ssh-ing from your personal machine;
+            the second allows intra-VPC connections. all rpc requests
+            from the outside world are dropped</p>
         <script src="https://utteranc.es/client.js" repo="tkoukpari/blog" issue-term="pathname" theme="github-light"
       crossorigin="anonymous" async></script>
     <hr>

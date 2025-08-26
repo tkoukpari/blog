@@ -2,8 +2,8 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>https://tkoukpari.github.io/blog</id>
   <title type="text">tkoukpari&apos;s blog</title>
-  <generator uri="https://github.com/tkoukpari/blog-src" version="51c21ee3">blog-src</generator>
-  <updated>2025-08-17T00:00:00Z</updated>
+  <generator uri="https://github.com/tkoukpari/blog-src" version="52734c38">blog-src</generator>
+  <updated>2025-08-26T00:00:00Z</updated>
   <author>
     <name>tkoukpari</name>
   </author>
@@ -433,5 +433,28 @@ counterfactual:&lt;/p&gt;
 they are Iraq, Ukraine, etc.?&lt;/p&gt;
     </content>
     <link href="https://tkoukpari.github.io/blog/2025-08-17-counterfactual" rel="alternate"/>
+  </entry>
+  <entry>
+    <id>tag:tkoukpari.github.io,2025-08-26:f8328097-be68-4210-91a5-dce10f6b5214</id>
+    <title type="text">firewalls</title>
+    <updated>2025-08-26T00:00:00Z</updated>
+    <published>2025-08-26T00:00:00Z</published>
+    <content type="html">
+      &lt;p&gt;I left a comment on the last post in this series about how &lt;em&gt;the
+same private network&lt;/em&gt; was an overestimate.&lt;/p&gt;
+&lt;p&gt;to make the servers in the vpc actually private you need to setup a
+firewall (which you can do under the networking tab)&lt;/p&gt;
+&lt;p&gt;the default should be to drop all requests. otherwise you should have
+two inbound rules:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;TCP protocol on port 22, accepting all IPv4 and IPv6 sources&lt;/li&gt;
+&lt;li&gt;TCP protocol on port 8080 (or wherever you are hosting your rpc),
+accepting all VPC IPv4 sources (e.g. 10.0.0.1/32… 10.0.0.n/32)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;the first rule allows ssh-ing from your personal machine; the second
+allows intra-VPC connections. all rpc requests from the outside world
+are dropped&lt;/p&gt;
+    </content>
+    <link href="https://tkoukpari.github.io/blog/2025-08-26-firewalls" rel="alternate"/>
   </entry>
 </feed>
