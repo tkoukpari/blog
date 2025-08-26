@@ -418,17 +418,16 @@ they are Iraq, Ukraine, etc.?</p>]]>
       <link>https://tkoukpari.github.io/blog/2025-08-26-firewall</link>
       <description>
         <![CDATA[<p>I left a comment on the last post in this series about how
-<em>private network</em> was an overestimate - the network was entirely
+<em>private network</em> was an overestimate… the network was entirely
 public</p>
 <p>to make the servers in the VPC actually private you need to setup a
 firewall, which you can do under the networking tab on linode’s main
-page</p>
-<p>the default should be to drop all inbound and outbound requests.
+page. the default should be to drop all inbound and outbound requests.
 otherwise you should have two inbound rules:</p>
 <ul>
-<li>TCP protocol on port 22, accepting all IPv4 and IPv6 sources</li>
+<li>TCP protocol on port 22, accepting all IPv6 sources</li>
 <li>TCP protocol on port 8080 (or wherever you are hosting your rpc),
-accepting all VPC IPv4 sources (e.g. 10.0.0.1/32… 10.0.0.n/32)</li>
+accepting all VPC IPv4 sources (e.g. 10.0.0.1/32)</li>
 </ul>
 <p>the first rule allows ssh-ing from your personal machine; the second
 allows intra-VPC connections. rpc requests from outside the network are
