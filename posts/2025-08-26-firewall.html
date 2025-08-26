@@ -43,13 +43,13 @@
       </p>
           </header>
             <p>I left a comment on the last post in this series about
-            how <em>the same private network</em> was an
-            overestimate.</p>
-            <p>to make the servers in the vpc actually private you need
-            to setup a firewall (which you can do under the networking
-            tab)</p>
-            <p>the default should be to drop all requests. otherwise you
-            should have two inbound rules:</p>
+            how <em>private network</em> was an overestimate - the
+            network was entirely public</p>
+            <p>to make the servers in the VPC actually private you need
+            to setup a firewall, which you can do under the networking
+            tab on linode’s main page</p>
+            <p>the default should be to drop all inbound and outbound
+            requests. otherwise you should have two inbound rules:</p>
             <ul>
             <li>TCP protocol on port 22, accepting all IPv4 and IPv6
             sources</li>
@@ -58,15 +58,15 @@
             10.0.0.n/32)</li>
             </ul>
             <p>the first rule allows ssh-ing from your personal machine;
-            the second allows intra-VPC connections. all rpc requests
-            from the outside world are dropped</p>
+            the second allows intra-VPC connections. rpc requests from
+            outside the network are dropped</p>
         <script src="https://utteranc.es/client.js" repo="tkoukpari/blog" issue-term="pathname" theme="github-light"
       crossorigin="anonymous" async></script>
     <hr>
     <small>
       <a href="../index.html">index</a> |
       <a href="../atom.xml">atom</a>/<a href="../rss.xml">rss</a> |
-      generated off rev <a href="https://github.com/tkoukpari/blog-src/commit/fff05e1f">fff05e1f</a>
+      generated off rev <a href="https://github.com/tkoukpari/blog-src/commit/9cb70633">9cb70633</a>
     </small>
   </article>
 </body>

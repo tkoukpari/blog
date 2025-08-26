@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>https://tkoukpari.github.io/blog</id>
   <title type="text">tkoukpari&apos;s blog</title>
-  <generator uri="https://github.com/tkoukpari/blog-src" version="fff05e1f">blog-src</generator>
+  <generator uri="https://github.com/tkoukpari/blog-src" version="9cb70633">blog-src</generator>
   <updated>2025-08-26T00:00:00Z</updated>
   <author>
     <name>tkoukpari</name>
@@ -440,20 +440,22 @@ they are Iraq, Ukraine, etc.?&lt;/p&gt;
     <updated>2025-08-26T00:00:00Z</updated>
     <published>2025-08-26T00:00:00Z</published>
     <content type="html">
-      &lt;p&gt;I left a comment on the last post in this series about how &lt;em&gt;the
-same private network&lt;/em&gt; was an overestimate.&lt;/p&gt;
-&lt;p&gt;to make the servers in the vpc actually private you need to setup a
-firewall (which you can do under the networking tab)&lt;/p&gt;
-&lt;p&gt;the default should be to drop all requests. otherwise you should have
-two inbound rules:&lt;/p&gt;
+      &lt;p&gt;I left a comment on the last post in this series about how
+&lt;em&gt;private network&lt;/em&gt; was an overestimate - the network was entirely
+public&lt;/p&gt;
+&lt;p&gt;to make the servers in the VPC actually private you need to setup a
+firewall, which you can do under the networking tab on linode’s main
+page&lt;/p&gt;
+&lt;p&gt;the default should be to drop all inbound and outbound requests.
+otherwise you should have two inbound rules:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;TCP protocol on port 22, accepting all IPv4 and IPv6 sources&lt;/li&gt;
 &lt;li&gt;TCP protocol on port 8080 (or wherever you are hosting your rpc),
 accepting all VPC IPv4 sources (e.g. 10.0.0.1/32… 10.0.0.n/32)&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;the first rule allows ssh-ing from your personal machine; the second
-allows intra-VPC connections. all rpc requests from the outside world
-are dropped&lt;/p&gt;
+allows intra-VPC connections. rpc requests from outside the network are
+dropped&lt;/p&gt;
     </content>
     <link href="https://tkoukpari.github.io/blog/2025-08-26-firewall" rel="alternate"/>
   </entry>
