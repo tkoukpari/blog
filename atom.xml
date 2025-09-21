@@ -2,8 +2,8 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>https://tkoukpari.github.io/blog</id>
   <title type="text">tkoukpari&apos;s blog</title>
-  <generator uri="https://github.com/tkoukpari/blog-src" version="435f1407">blog-src</generator>
-  <updated>2025-08-26T00:00:00Z</updated>
+  <generator uri="https://github.com/tkoukpari/blog-src" version="6e6df97c">blog-src</generator>
+  <updated>2025-09-21T00:00:00Z</updated>
   <author>
     <name>tkoukpari</name>
   </author>
@@ -411,7 +411,28 @@ role=&quot;doc-backlink&quot;&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
     <updated>2025-08-17T00:00:00Z</updated>
     <published>2025-08-17T00:00:00Z</published>
     <content type="html">
-      &lt;p&gt;I finished reading &lt;em&gt;The Spread of Nuclear Weapons&lt;/em&gt;, by Sagan
+      &lt;div dir=&quot;rtl&quot;&gt;
+&lt;p&gt;من مطالعه‌ی کتاب &lt;em&gt;گسترش سلاح‌های هسته‌ای&lt;/em&gt; نوشته‌ی ساگان و والتز را
+به پایان رساندم و در ابتدا قانع شدم که استدلال‌های ساگان علیه نظریه
+بازدارندگی عقلانی درست است:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;ارتش‌ها جنگ‌های پیشگیرانه را ترجیح می‌دهند.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;قابلیت‌های حمله تلافی‌جویانه دوم سخت به دست می‌آیند و سازمان‌های
+متصدی تمایلی به تخصیص منابع برای آن ندارند.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;اگر مسئولیت به پرسنل نظامی در سطوح پایین‌تر واگذار شود وقوع حوادث
+اجتناب‌ ناپذیر خواهند بود&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;تئوری سازمان متصدی سه شرط لازم بازدارندگی هسته ایی : جلوگیری از
+جنگ،توسعه نیروهای مقاوم در برابر ضربه دوم -اجتناب وقوع حوادث را غیر
+متحمل میکند&lt;/p&gt;
+&lt;p&gt;ساگان در نتیجه‌گیری‌اش، می‌گوید کشورهایی که به دنبال سلاح‌های هسته‌ای
+هستند «باید قانع شوند که این کار به نفعشان نیست»،&lt;/p&gt;
+&lt;p&gt;تا اینجای متن را خوانده بودم، بدون اینکه متوجه غیبت عمدیِ فرضیهٔ
+جایگزین شوم&lt;/p&gt;
+&lt;p&gt;اگر کشورهایی مانند عراق، اوکراین به دنبال سلاح‌های هسته‌ای نروند چه
+اتفاقی می‌افتد؟&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;I finished reading &lt;em&gt;The Spread of Nuclear Weapons&lt;/em&gt;, by Sagan
 and Waltz, and was initially convinced of Sagan’s arguments against
 rational deterence theory:&lt;/p&gt;
 &lt;ul&gt;
@@ -457,5 +478,30 @@ allows intra-VPC connections. rpc requests from outside the network are
 dropped&lt;/p&gt;
     </content>
     <link href="https://tkoukpari.github.io/blog/2025-08-26-firewall" rel="alternate"/>
+  </entry>
+  <entry>
+    <id>tag:tkoukpari.github.io,2025-08-27:5c39fcd6-32db-45bf-a006-77195aba8ef8</id>
+    <title type="text">kerberos</title>
+    <updated>2025-08-27T00:00:00Z</updated>
+    <published>2025-08-27T00:00:00Z</published>
+    <content type="html">
+      &lt;p&gt;if you want to permission machines within a VPC network, or revert
+the last post’s firewall rules and accept permissioned out-of-network
+connections, use can modify the rpc code to use kerberos&lt;/p&gt;
+    </content>
+    <link href="https://tkoukpari.github.io/blog/2025-08-27-kerberos" rel="alternate"/>
+  </entry>
+  <entry>
+    <id>tag:tkoukpari.github.io,2025-09-21:98a526a5-0124-4383-a5dc-5cb9aa1bb1f6</id>
+    <title type="text">leila</title>
+    <updated>2025-09-21T00:00:00Z</updated>
+    <published>2025-09-21T00:00:00Z</published>
+    <content type="html">
+      &lt;div dir=&quot;rtl&quot;&gt;
+&lt;p&gt;&lt;a
+href=&quot;https://www.youtube.com/watch?v=WghnS4x6rG0&amp;amp;list&quot;&gt;لیلا&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+    </content>
+    <link href="https://tkoukpari.github.io/blog/2025-09-21-fall" rel="alternate"/>
   </entry>
 </feed>

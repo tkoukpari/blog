@@ -390,7 +390,28 @@ role="doc-backlink">↩︎</a></p></li>
       <title>counterfactual</title>
       <link>https://tkoukpari.github.io/blog/2025-08-17-counterfactual</link>
       <description>
-        <![CDATA[<p>I finished reading <em>The Spread of Nuclear Weapons</em>, by Sagan
+        <![CDATA[<div dir="rtl">
+<p>من مطالعه‌ی کتاب <em>گسترش سلاح‌های هسته‌ای</em> نوشته‌ی ساگان و والتز را
+به پایان رساندم و در ابتدا قانع شدم که استدلال‌های ساگان علیه نظریه
+بازدارندگی عقلانی درست است:</p>
+<ul>
+<li><p>ارتش‌ها جنگ‌های پیشگیرانه را ترجیح می‌دهند.</p></li>
+<li><p>قابلیت‌های حمله تلافی‌جویانه دوم سخت به دست می‌آیند و سازمان‌های
+متصدی تمایلی به تخصیص منابع برای آن ندارند.</p></li>
+<li><p>اگر مسئولیت به پرسنل نظامی در سطوح پایین‌تر واگذار شود وقوع حوادث
+اجتناب‌ ناپذیر خواهند بود</p></li>
+</ul>
+<p>تئوری سازمان متصدی سه شرط لازم بازدارندگی هسته ایی : جلوگیری از
+جنگ،توسعه نیروهای مقاوم در برابر ضربه دوم -اجتناب وقوع حوادث را غیر
+متحمل میکند</p>
+<p>ساگان در نتیجه‌گیری‌اش، می‌گوید کشورهایی که به دنبال سلاح‌های هسته‌ای
+هستند «باید قانع شوند که این کار به نفعشان نیست»،</p>
+<p>تا اینجای متن را خوانده بودم، بدون اینکه متوجه غیبت عمدیِ فرضیهٔ
+جایگزین شوم</p>
+<p>اگر کشورهایی مانند عراق، اوکراین به دنبال سلاح‌های هسته‌ای نروند چه
+اتفاقی می‌افتد؟</p>
+</div>
+<p>I finished reading <em>The Spread of Nuclear Weapons</em>, by Sagan
 and Waltz, and was initially convinced of Sagan’s arguments against
 rational deterence theory:</p>
 <ul>
@@ -434,6 +455,27 @@ allows intra-VPC connections. rpc requests from outside the network are
 dropped</p>]]>
       </description>
       <pubDate>Tue, 26 Aug 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>kerberos</title>
+      <link>https://tkoukpari.github.io/blog/2025-08-27-kerberos</link>
+      <description>
+        <![CDATA[<p>if you want to permission machines within a VPC network, or revert
+the last post’s firewall rules and accept permissioned out-of-network
+connections, use can modify the rpc code to use kerberos</p>]]>
+      </description>
+      <pubDate>Wed, 27 Aug 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>leila</title>
+      <link>https://tkoukpari.github.io/blog/2025-09-21-fall</link>
+      <description>
+        <![CDATA[<div dir="rtl">
+<p><a
+href="https://www.youtube.com/watch?v=WghnS4x6rG0&amp;list">لیلا</a></p>
+</div>]]>
+      </description>
+      <pubDate>Sun, 21 Sep 2025 00:00:00 GMT</pubDate>
     </item>
   </channel>
 </rss>

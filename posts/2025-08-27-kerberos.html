@@ -6,8 +6,8 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-      <meta name="dcterms.date" content="2025-07-19" />
-      <title>intro</title>
+      <meta name="dcterms.date" content="2025-08-27" />
+      <title>kerberos</title>
   <link rel="stylesheet" href="../static/reset.css" />
   <link rel="stylesheet" href="../static/custom.css" />
   <link rel="stylesheet" href="../static/highlighting.css" />
@@ -35,26 +35,17 @@
   </div>
   <article>
             <header id="title-block-header">
-      <h1 class="title">intro</h1>
-            <p class="date">2025-07-19</p>
+      <h1 class="title">kerberos</h1>
+            <p class="date">2025-08-27</p>
                   <p class="category">category: <a href="../category/tech.html">tech</a></p>
                   <p class="tags">
         tags: <a href="../tag/ocaml.html">ocaml</a> 
       </p>
           </header>
-            <p>I’m going to write a series on ocaml rpc infrastructure:
-            how to set up an ecosystem of servers, have them talk to
-            each other via rpc, and have them interact with the outside
-            world.</p>
-            <p>I’ll assume knowledge of the code in <a
-            href="https://github.com/tkoukpari/rpcs">rpcs</a>. there are
-            three relevant libraries under the server-client-rpc
-            directory. the libraries are split across server, client,
-            and protocol to avoid a build dependency between server and
-            client.</p>
-            <p>the rpc is implemented with <a
-            href="https://github.com/janestreet/babel">babel</a>, but is
-            otherwise easy to follow</p>
+            <p>if you want to permission machines within a VPC network,
+            or revert the last post’s firewall rules and accept
+            permissioned out-of-network connections, use can modify the
+            rpc code to use kerberos</p>
         <script src="https://utteranc.es/client.js" repo="tkoukpari/blog" issue-term="pathname" theme="github-light"
       crossorigin="anonymous" async></script>
     <hr>
