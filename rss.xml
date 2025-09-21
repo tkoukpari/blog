@@ -470,12 +470,10 @@ connections, use can modify the rpc code to use kerberos</p>]]>
       <title>لیلا</title>
       <link>https://tkoukpari.github.io/blog/2025-09-21-leila</link>
       <description>
-        <![CDATA[<div dir="rtl">
-<audio controls>
-<source src="../../audio/leila.mp3" type="audio/mp3">
+        <![CDATA[<audio controls>
+<source src="blog-src/audio/leila.mp3" type="audio/mp3">
 </source>
-</audio>
-</div>]]>
+</audio>]]>
       </description>
       <pubDate>Sun, 21 Sep 2025 00:00:00 GMT</pubDate>
     </item>
