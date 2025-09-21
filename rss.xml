@@ -473,11 +473,35 @@ connections, use can modify the rpc code to use kerberos</p>]]>
         <![CDATA[<div dir="rtl">
 <audio controls>
 <source src="../../audio/leila.mp3" type="audio/mp3">
+</source>
 </audio>
-</div>
 </div>]]>
       </description>
       <pubDate>Sun, 21 Sep 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>game theory</title>
+      <link>https://tkoukpari.github.io/blog/2026-01-01-game-theory</link>
+      <description><![CDATA[]]></description>
+      <pubDate>Thu, 01 Jan 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>the only path to liberty</title>
+      <link>https://tkoukpari.github.io/blog/2026-01-02-the-only-path-to-liberty</link>
+      <description><![CDATA[]]></description>
+      <pubDate>Fri, 02 Jan 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>securing the realm</title>
+      <link>https://tkoukpari.github.io/blog/2026-01-03-securing-the-realm</link>
+      <description><![CDATA[]]></description>
+      <pubDate>Sat, 03 Jan 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>greater west asia</title>
+      <link>https://tkoukpari.github.io/blog/2026-01-04-greater-west-asia</link>
+      <description><![CDATA[]]></description>
+      <pubDate>Sun, 04 Jan 2026 00:00:00 GMT</pubDate>
     </item>
   </channel>
 </rss>

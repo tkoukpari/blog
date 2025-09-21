@@ -2,8 +2,8 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>https://tkoukpari.github.io/blog</id>
   <title type="text">tkoukpari&apos;s blog</title>
-  <generator uri="https://github.com/tkoukpari/blog-src" version="a84b9774">blog-src</generator>
-  <updated>2025-09-21T00:00:00Z</updated>
+  <generator uri="https://github.com/tkoukpari/blog-src" version="9a17b268">blog-src</generator>
+  <updated>2026-01-04T00:00:00Z</updated>
   <author>
     <name>tkoukpari</name>
   </author>
@@ -500,10 +500,42 @@ connections, use can modify the rpc code to use kerberos&lt;/p&gt;
       &lt;div dir=&quot;rtl&quot;&gt;
 &lt;audio controls&gt;
 &lt;source src=&quot;../../audio/leila.mp3&quot; type=&quot;audio/mp3&quot;&gt;
+&lt;/source&gt;
 &lt;/audio&gt;
-&lt;/div&gt;
 &lt;/div&gt;
     </content>
     <link href="https://tkoukpari.github.io/blog/2025-09-21-leila" rel="alternate"/>
+  </entry>
+  <entry>
+    <id>tag:tkoukpari.github.io,2026-01-01:fed48309-0321-4281-b049-fd341fe0c717</id>
+    <title type="text">game theory</title>
+    <updated>2026-01-01T00:00:00Z</updated>
+    <published>2026-01-01T00:00:00Z</published>
+    <content type="html"></content>
+    <link href="https://tkoukpari.github.io/blog/2026-01-01-game-theory" rel="alternate"/>
+  </entry>
+  <entry>
+    <id>tag:tkoukpari.github.io,2026-01-02:33686e2a-01f7-4b63-9e02-a8567d186821</id>
+    <title type="text">the only path to liberty</title>
+    <updated>2026-01-02T00:00:00Z</updated>
+    <published>2026-01-02T00:00:00Z</published>
+    <content type="html"></content>
+    <link href="https://tkoukpari.github.io/blog/2026-01-02-the-only-path-to-liberty" rel="alternate"/>
+  </entry>
+  <entry>
+    <id>tag:tkoukpari.github.io,2026-01-03:a89ccbe9-78d7-40fd-8556-9c57d01f14bb</id>
+    <title type="text">securing the realm</title>
+    <updated>2026-01-03T00:00:00Z</updated>
+    <published>2026-01-03T00:00:00Z</published>
+    <content type="html"></content>
+    <link href="https://tkoukpari.github.io/blog/2026-01-03-securing-the-realm" rel="alternate"/>
+  </entry>
+  <entry>
+    <id>tag:tkoukpari.github.io,2026-01-04:119a8ad8-d062-4f3d-81f2-098ac2c057eb</id>
+    <title type="text">greater west asia</title>
+    <updated>2026-01-04T00:00:00Z</updated>
+    <published>2026-01-04T00:00:00Z</published>
+    <content type="html"></content>
+    <link href="https://tkoukpari.github.io/blog/2026-01-04-greater-west-asia" rel="alternate"/>
   </entry>
 </feed>
