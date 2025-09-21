@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>https://tkoukpari.github.io/blog</id>
   <title type="text">tkoukpari&apos;s blog</title>
-  <generator uri="https://github.com/tkoukpari/blog-src" version="9c7bdccd">blog-src</generator>
+  <generator uri="https://github.com/tkoukpari/blog-src" version="ebde3f62">blog-src</generator>
   <updated>2026-01-04T00:00:00Z</updated>
   <author>
     <name>tkoukpari</name>
@@ -498,7 +498,7 @@ connections, use can modify the rpc code to use kerberos&lt;/p&gt;
     <published>2025-09-21T00:00:00Z</published>
     <content type="html">
       &lt;audio controls&gt;
-&lt;source src=&quot;blog-src/audio/leila.mp3&quot; type=&quot;audio/mp3&quot;&gt;
+&lt;source src=&quot;../../blog-src/audio/leila.mp3&quot; type=&quot;audio/mp3&quot;&gt;
 &lt;/source&gt;
 &lt;/audio&gt;
     </content>
