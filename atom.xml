@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>https://tkoukpari.github.io/blog</id>
   <title type="text">tkoukpari&apos;s blog</title>
-  <generator uri="https://github.com/tkoukpari/blog-src" version="6e6df97c">blog-src</generator>
+  <generator uri="https://github.com/tkoukpari/blog-src" version="a84b9774">blog-src</generator>
   <updated>2025-09-21T00:00:00Z</updated>
   <author>
     <name>tkoukpari</name>
@@ -493,15 +493,17 @@ connections, use can modify the rpc code to use kerberos&lt;/p&gt;
   </entry>
   <entry>
     <id>tag:tkoukpari.github.io,2025-09-21:98a526a5-0124-4383-a5dc-5cb9aa1bb1f6</id>
-    <title type="text">leila</title>
+    <title type="text">لیلا</title>
     <updated>2025-09-21T00:00:00Z</updated>
     <published>2025-09-21T00:00:00Z</published>
     <content type="html">
       &lt;div dir=&quot;rtl&quot;&gt;
-&lt;p&gt;&lt;a
-href=&quot;https://www.youtube.com/watch?v=WghnS4x6rG0&amp;amp;list&quot;&gt;لیلا&lt;/a&gt;&lt;/p&gt;
+&lt;audio controls&gt;
+&lt;source src=&quot;../../audio/leila.mp3&quot; type=&quot;audio/mp3&quot;&gt;
+&lt;/audio&gt;
+&lt;/div&gt;
 &lt;/div&gt;
     </content>
-    <link href="https://tkoukpari.github.io/blog/2025-09-21-fall" rel="alternate"/>
+    <link href="https://tkoukpari.github.io/blog/2025-09-21-leila" rel="alternate"/>
   </entry>
 </feed>
